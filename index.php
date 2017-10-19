@@ -83,7 +83,7 @@
 	$_environment = 'development';
 	switch( $system_path ) {
 
-	   case 'C:\wamp\www\base\system\\':
+	   case 'C:\wamp64\www\prasad\sense\sense\system\\':
 		   $_environment = 'development'; // local, development, testing, production
 		   break;
 	   case '/home/damaccpanel/public_html/':

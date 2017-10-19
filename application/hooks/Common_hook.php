@@ -35,7 +35,11 @@ class Common_Hook{
 			$CI->merror['error'] = array();
 		}
 
-//p('here 0');exit;
+		$CI->mcontents['page_heading'] = '';
+		$CI->mcontents['sCurrentMainMenu'] = '';
+
+
+
 
 		// load commonly used config items here,
 		// so that we can avoid many function calls throughout the rest of the code.

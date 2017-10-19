@@ -8,11 +8,11 @@
     <title><?php echo @$page_title? $page_title : getTitle();?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=100%; initial-scale=1; maximum-scale=1; minimum-scale=1; user-scalable=no;"/>
-    <link rel="shortcut icon" href="<?php echo $c_static_image_url;?>favicon.ico"/>
-    <link rel="apple-touch-glyphicon glyphicon-precomposed" sizes="144x144" href="<?php echo $c_base_url;?>asset/img/apple-touch-glyphicon glyphicon-144-precomposed.png"/>
-    <link rel="apple-touch-glyphicon glyphicon-precomposed" sizes="114x114" href="<?php echo $c_base_url;?>asset/img/apple-touch-glyphicon glyphicon-114-precomposed.png"/>
-    <link rel="apple-touch-glyphicon glyphicon-precomposed" sizes="72x72" href="<?php echo $c_base_url;?>asset/img/apple-touch-glyphicon glyphicon-72-precomposed.png"/>
-    <link rel="apple-touch-glyphicon glyphicon-precomposed" href="<?php echo $c_base_url;?>asset/img/apple-touch-glyphicon glyphicon-57-precomposed.png"/>
+    <link rel="shortcut icon" href="<?php echo $this->config->item('static_image_url');?>favicon.ico"/>
+    <link rel="apple-touch-glyphicon glyphicon-precomposed" sizes="144x144" href="<?php echo $this->config->item('base_url');?>asset/img/apple-touch-glyphicon glyphicon-144-precomposed.png"/>
+    <link rel="apple-touch-glyphicon glyphicon-precomposed" sizes="114x114" href="<?php echo $this->config->item('base_url');?>asset/img/apple-touch-glyphicon glyphicon-114-precomposed.png"/>
+    <link rel="apple-touch-glyphicon glyphicon-precomposed" sizes="72x72" href="<?php echo $this->config->item('base_url');?>asset/img/apple-touch-glyphicon glyphicon-72-precomposed.png"/>
+    <link rel="apple-touch-glyphicon glyphicon-precomposed" href="<?php echo $this->config->item('base_url');?>asset/img/apple-touch-glyphicon glyphicon-57-precomposed.png"/>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
 		<!--<a href="<?php echo c('base_url');?>"  title="<?php echo c('website_name');?>">
 			<img src="<?php echo $c_static_image_url, c('logo_image_name');?>" alt="<?php echo $c_website_title;?>"/>
 		</a>-->
-        <h1><?php echo $c_website_title;?></h1>
+        <h1><?php echo $this->config->item('website_title');?></h1>
 		<hr/>
 
 
@@ -46,7 +46,7 @@
     array(
     'section_title' => 'Home',
         'links' => array(),
-        'url' => $c_base_url . 'home',
+        'url' => $this->config->item('base_url') . 'home',
         'opened' => false,
     ),
 
@@ -113,32 +113,9 @@
 
 
 	</div>
-	<div class="col-xs-10">
-
-		<div class="row">
-			<?php login_logout();?>
-            <?php /*?>
-
-			<div class="col-xs-12 text-right">
+	<div class="col-xs-10"> 
 
 
-						<a href="<?php echo current_url() . '?language=en';?>">
-							<?php if( $sLanguage == 'en' ):?>
-								<i class="fa fa-check"></i>
-							<?php endif?>
-							English
-						</a>&nbsp;&nbsp;&nbsp;
-
-						<a href="<?php echo current_url() . '?language=ml';?>">
-							<?php if( $sLanguage == 'ml' ):?>
-								<i class="fa fa-check"></i>
-							<?php endif?>
-							<?php echo $this->lang->line('common_malayalam');?>
-						</a>
-
-			</div>
-            <?php */?>
-		</div>
 		<div class="row">
 		<div class="col-md-12">
 

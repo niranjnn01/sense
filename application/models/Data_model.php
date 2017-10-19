@@ -32,7 +32,9 @@ class Data_model extends CI_Model{
 			'token_purposes' 	=> 'token_purposes',
 			'enquiry_purpose_statuses' 	=> 'enquiry_purpose_statuses',
 			'profile_picture_sources' 	=> 'profile_picture_sources',
-
+			'category_groups' => 'category_group',
+			'category_status' => 'category_statuses',
+			'category_group_status' => 'category_group_statuses'
 
 		);
 
