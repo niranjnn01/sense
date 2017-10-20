@@ -67,6 +67,25 @@
         'opened' => ($sCurrentMainMenu == 'users') ? true : false,
 	),
 
+
+	array(
+		'section_title' =>'Gallery',
+		'links' => array(
+			array(
+				'title' => 'List Images',
+				'uri' => 'gallery/listing',
+                'opened' => false
+			),
+			array(
+				'title' => 'Upload new Image',
+				'uri' => 'gallery/upload',
+                'opened' => false
+			),
+		),
+        'opened' => ($sCurrentMainMenu == 'gallery') ? true : false,
+	),
+
+
 	array(
 		'section_title' => 'Sitepages',
 		'links' => array(
@@ -113,10 +132,6 @@
 
 
 	</div>
-	<div class="col-xs-10"> 
+	<div class="col-xs-10">
 
-
-		<div class="row">
-		<div class="col-md-12">
-
-			<h2><?php echo $page_heading;?></h2>
+        <h2><?php echo $page_heading;?></h2>

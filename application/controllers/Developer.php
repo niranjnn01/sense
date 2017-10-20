@@ -15,6 +15,18 @@ class Developer extends CI_Controller {
 		}
 	}
 
+	function img() {
+
+$sFile = 'C:\RAKESH\work\Test Files\Images\mountains\mountains-Kirkjufe_3374110a.jpg';
+$sFile = 'C:\RAKESH\work\Test Files\Images\arunachalam.jpg';
+
+	var_dump(
+		getimagesize($sFile)
+	);
+
+	}
+
+
 	function load() {
 
 		$this->load->helper('asset_load');

@@ -104,6 +104,7 @@ function uploadFile($sFileType, $sSection, $sFieldName, $aCustomConfig=array(), 
 		return $aUploadData;
 
 	} else {
+		
 			$CI->merror['error'] = $CI->$aConfig['file_name']->display_errors();
 			return array();
 	}

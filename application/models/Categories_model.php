@@ -14,16 +14,22 @@
             return $result;
         }
 
-        public function get_categories_by_group( $group_id ) {
+        public function get_categories_by_group( $sBy='id', $value ) {
 
-            $this->db->select('*');
-            $this->db->where('group_id', $group_id);
-            $query = $this->db->get('categories');
+            $sWhereField = 'CG.' . $sBy;
+
+            $this->db->select('C.*');
+            $this->db->where($sWhereField, $value);
+            $query = $this->db->join('category_group CG', 'C.group_id = CG.id');
+            $query = $this->db->get('categories C');
             $result = $query->result();
-            $result_set = array (
-                                'aCategories' => $result
-                              );
-            return $result_set;
+
+            // $this->db->select('*');
+            // $this->db->where('group_id', $group_id);
+            // $query = $this->db->get('categories');
+            // $result = $query->result();
+
+            return $result;
         }
 
         public function get_category_by_id($category_id) {

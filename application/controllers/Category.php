@@ -20,7 +20,7 @@ class Category extends CI_Controller {
 
 			$this->form_validation->set_rules('name', 'Name', 'required');
 			$this->form_validation->set_rules('title', 'Title', 'required');
-			$this->form_validation->set_rules('description', 'Description', 'required');
+			//$this->form_validation->set_rules('description', 'Description', 'required');
 
 			if( $this->form_validation->run() == TRUE ) {
 

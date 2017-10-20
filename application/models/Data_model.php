@@ -34,7 +34,8 @@ class Data_model extends CI_Model{
 			'profile_picture_sources' 	=> 'profile_picture_sources',
 			'category_groups' => 'category_group',
 			'category_status' => 'category_statuses',
-			'category_group_status' => 'category_group_statuses'
+			'category_group_status' => 'category_group_statuses',
+			'image_gallery_item_statuses' => 'image_gallery_item_statuses',
 
 		);
 
@@ -66,7 +67,7 @@ class Data_model extends CI_Model{
 	 * @param  [type] $sFormat    [description]
 	 * @return [type]             [description]
 	 */
-	private function getDataInFormat($aTableData, $sFormat) {
+	public function getDataInFormat($aTableData, $sFormat) {
 
 		$aData = array();
 		$aParts = explode('-', $sFormat);
