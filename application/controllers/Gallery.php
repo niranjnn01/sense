@@ -93,9 +93,14 @@ class Gallery extends CI_Controller {
  		/* Pagination - End */
 
 
- 		
+		// pop up files
+        $this->mcontents['load_css'][] = 'captionbox.css';
+        $this->mcontents['load_js']['links'][] = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js';
+        $this->mcontents['load_js'][] = 'home/exif.js';
+        $this->mcontents['load_js'][] = 'home/captionbox.js';
 
- 		loadAdminTemplate('gallery/index');
+
+ 		loadTemplate('gallery/index');
  	}
 
 
@@ -179,6 +184,7 @@ class Gallery extends CI_Controller {
 
 		loadAdminTemplate('gallery/listing');
 	}
+
 
 
 	/**

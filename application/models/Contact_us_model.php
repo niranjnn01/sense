@@ -62,5 +62,9 @@ class Contact_us_model extends CI_Model{
 		return $this->db->get('enquiry_purposes EP')->result();
 	}
 
+	public function put_enquiry( $aEnquiry ) {
+
+		$this->db->insert('enquiries' , $aEnquiry);
+	}
 
 }

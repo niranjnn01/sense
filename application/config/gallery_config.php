@@ -38,5 +38,5 @@ $config['picture_gallery_thumbnail_dimensions'] = array (
 	'small'            => array('width' => 100, 'height' => 100),
 	'normal'           => array('width' => 200, 'height' => 200),
     'display_image'    => array('width' => 250, 'height' => 150),
-	'large'            => array('width' => 600, 'height' => 800),
+	'large'            => array('width' => 800, 'height' => 800),
 );

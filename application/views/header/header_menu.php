@@ -33,6 +33,9 @@
             <a href="<?php echo $c_base_url;?>contact_us">Contact Us</a>
         </li>
 
+        <li class="">
+            <a href="<?php echo $c_base_url, 'gallery';?>" >Gallery </a>
+        </li>
 
 		<?php if( $this->authentication->is_user_logged_in() ):?>
 

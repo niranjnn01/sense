@@ -59,9 +59,11 @@
 							</ul>
 						</td>
 						<td><?php foreach ( $aCategory_group_status as $status ):?>
+
 								<?php if( $data->status == $status->id ):?>
 									<?php echo $status->title ?>
 								<?php endif;?>
+								
 							 <?php endforeach;?>
 						</td>
 					<?php endforeach;?>
