@@ -12,16 +12,25 @@
                     <input type="text"
                            class="form-control"
                            placeholder="first name"
-                           name       ="fname"
-                           value      ="<?php echo set_value('fname'); ?>">
+                           name       ="first_name"
+                           value      ="<?php echo set_value('first_name'); ?>">
                </div>
+
+               <div class="form-group">
+                   <label>Middle Name</label>
+                   <input type       ="text"
+                          class      ="form-control"
+                          placeholder="Middle name"
+                          name       ="middle_name"
+                          value      ="<?php echo set_value('middle_name'); ?>">
+              </div>
 
                <div class="form-group">
                    <label>Last Name</label>
                    <input type       ="text"
                           class      ="form-control"
                           placeholder="last name"
-                          name       ="lname"
+                          name       ="last_name"
                           value      ="<?php echo set_value('lname'); ?>">
               </div>
 
@@ -30,7 +39,7 @@
                   <input type       ="text"
                          class      ="form-control"
                          placeholder="email"
-                         name       ="email"
+                         name       ="email_id"
                          value      ="<?php echo set_value('email'); ?>">
               </div>
 

@@ -1,6 +1,8 @@
 <div class="container">
 
 	<h2 class="text-primary">Edit Category Groups</h2><br>
+	<a href="<?php echo base_url()?>category">Create Category </a>
+	<a href="<?php echo base_url()?>category/category_group">Create Category Group </a>
 	<h4 class="text-success"><?php echo $this->session->flashdata('message'); ?></h4>
 	<h4 class="text-danger"><?php echo validation_errors(); ?></h4><br>
 

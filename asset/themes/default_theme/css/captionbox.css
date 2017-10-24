@@ -159,7 +159,7 @@
 }
 
 .captionBox .img_desc{
-  width: calc(100% - 250px);
+  width: calc(100%);
   text-align: justify;
   line-height: 130%;
   font-size: 90%;
