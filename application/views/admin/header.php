@@ -111,6 +111,11 @@
 				'uri' => 'contact_purpose/listing',
                 'opened' => false
 			),
+            array(
+				'title' => 'List Enquiries',
+				'uri' => 'contact_us/list_enquiries',
+                'opened' => false
+			),
 		),
         'opened' => ($sCurrentMainMenu == 'contact_us') ? true : false,
 	),

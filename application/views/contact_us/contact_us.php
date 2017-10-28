@@ -1,44 +1,26 @@
-    <h2 class="text-primary">Contact Us</h2><br>
-    <div class="row">
-        <div class="col-md-6">
+
+    <br><br><div class="row">
+        <div class="col-md-5">
             <h3 class="text-primary">Submit Your Query</h3>
             <h4 class="text-success"><?php echo $this->session->flashdata('message'); ?></h4>
             <h4 class="text-danger"><?php echo validation_errors(); ?></h4><br>
 
-            <form class="forms" action="<?php echo base_url()?>contact_us" method="post" style="width : 300px; height : 400px">
+            <form class="forms" action="<?php echo base_url()?>contact_us" method="post" style="width : 350px; height : 400px">
 
                 <div class="form-group">
                     <label>First Name</label>
                     <input type="text"
                            class="form-control"
-                           placeholder="first name"
+                           placeholder=""
                            name       ="first_name"
                            value      ="<?php echo set_value('first_name'); ?>">
                </div>
-
-               <div class="form-group">
-                   <label>Middle Name</label>
-                   <input type       ="text"
-                          class      ="form-control"
-                          placeholder="Middle name"
-                          name       ="middle_name"
-                          value      ="<?php echo set_value('middle_name'); ?>">
-              </div>
-
-               <div class="form-group">
-                   <label>Last Name</label>
-                   <input type       ="text"
-                          class      ="form-control"
-                          placeholder="last name"
-                          name       ="last_name"
-                          value      ="<?php echo set_value('lname'); ?>">
-              </div>
 
               <div class="form-group">
                   <label>E-mail</label>
                   <input type       ="text"
                          class      ="form-control"
-                         placeholder="email"
+                         placeholder=""
                          name       ="email_id"
                          value      ="<?php echo set_value('email'); ?>">
               </div>
@@ -47,7 +29,7 @@
                   <label>Contact Number</label>
                   <input type       ="text"
                          class      ="form-control"
-                         placeholder="contact number"
+                         placeholder=""
                          name       ="contact_number"
                          value      ="<?php echo set_value('contact_number'); ?>">
               </div>
@@ -64,7 +46,7 @@
               <div class="form-group">
                   <label>Message</label>
                   <textarea class    ="form-control"
-                          placeholder="message"
+                          placeholder=""
                           name       ="message"
                           value      ="<?php echo set_value('message'); ?>"></textarea>
               </div>
@@ -75,12 +57,18 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-7">
             <h3 class="text-primary">Address</h3><br>
-            <h4 class="text-default">Address address</h4><br>
+            <address>
+                Visit us at:<br>
+                Example.com<br>
+                Box 564, Disneyland<br>
+                Phone No:974564356<br>
+                USA
+            </address>
             <h3 class="text-primary">We are here..</h3><br>
 
-            <div id="map" style="width:400px;height:400px;background:yellow;float: center;"></div>
+            <div id="map" style="width:500px;height:500px;background:yellow;float: center;"></div>
 
             <script>
             function myMap() {

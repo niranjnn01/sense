@@ -5,11 +5,11 @@
 
             interval: 10000
 
-        }); 
+        });
 
 
         $('#captionBox').CaptionBox({
-              disableRightClick: true,
+              disableRightClick: false,
 			  alterUrlFlag: false
         });
     });

@@ -27,14 +27,15 @@ class Gallery extends CI_Controller {
 
  		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Picture Gallery ';
 
- 		$this->mcontents['iLimit'] 				= 20;
+ 		$this->mcontents['iLimit'] 	= 20;
+		$category_group = 'picture_gallery';
+		$category =  $this->input->get('category');
 
- 		// only authorized personal can access this page.
- 		$this->authentication->is_admin_logged_in(true, 'user/login');
+
 
  		// get image categories
  		$this->load->model('categories_model');
- 		$aPictureGalleryCategories = $this->categories_model->get_categories_by_group('name', 'picture_gallery');
+ 		$aPictureGalleryCategories = $this->categories_model->get_categories_by_group('name', $category_group );
  		$this->mcontents['aPictureGalleryCategories'] = $this->data_model->getDataInFormat($aPictureGalleryCategories, 'id-name');
  		$this->mcontents['aPictureGalleryCategoriesFlipped'] = $this->data_model->getDataInFormat($aPictureGalleryCategories, 'id-name');
  		$this->mcontents['aPictureGalleryCategoriesFlipped'] = array_flip($this->mcontents['aPictureGalleryCategories']);
@@ -45,13 +46,19 @@ class Gallery extends CI_Controller {
  		$this->mcontents['iCategory'] = NULL;
  		if( in_array($sCategory, $this->mcontents['aPictureGalleryCategories']) ) {
  			$this->mcontents['iCategory'] = $this->mcontents['aPictureGalleryCategoriesFlipped'][$sCategory];
+
  		}
 
+		if($category) {
+
+			$this->mcontents['iCategory'] = $this->mcontents['aPictureGalleryCategoriesFlipped'][$category];
+		}
+
  		// get offset
- 		$this->mcontents['iOffset'] = safeText('offset', false, 'get') ? safeText('offset', false, 'get') : 0;
+ 		$this->mcontents['iOffset'] = safeText('per_page', false, 'get') ? safeText('per_page', false, 'get') : 0;
 
 
- 	// p($this->mcontents['iCategory']);
+ 	   // p($this->mcontents['iCategory']);
 
  		$aWhere = $aOrWhere = $aOrderBy = $aWhere = array();
 
@@ -62,9 +69,12 @@ class Gallery extends CI_Controller {
 
 
 
+
  		$aOrderBy = array('IG.created_on' => 'DESC');
 
+
  		$this->mcontents['iTotal'] 		= $this->gallery_model->getGalleryPicturesCount($aWhere, array(), $aOrWhere);
+
  		$this->mcontents['aPictures'] 	= $this->gallery_model->getGalleryPictures(
  																			$this->mcontents['iLimit'],
  																			$this->mcontents['iOffset'],
@@ -75,17 +85,18 @@ class Gallery extends CI_Controller {
 
  		//p($this->db->last_query());
  		//p($this->mcontents['aPictures']);
+		// p($this->mcontents['iTotal'] );
 
  		/* Pagination */
- 		$sUriSegment = 'gallery/listing';
- 		$sUriString = preprocess_query_string_for_pagination($sUriSegment);
+ 		$sUriSegment = 'gallery';
+ 		$sUriString  = preprocess_query_string_for_pagination($sUriSegment);
 
  		$this->load->library('pagination');
  		$this->aPaginationConfiguration = array();
  		$this->aPaginationConfiguration['base_url'] 	= c('base_url') . $sUriSegment . '?' . $sUriString;
  		$this->aPaginationConfiguration['total_rows'] 	= $this->mcontents['iTotal'];
  		$this->aPaginationConfiguration['per_page'] 	= $this->mcontents['iLimit'];
- 		$this->aPaginationConfiguration['uri_segment'] 	= 4;
+ 		$this->aPaginationConfiguration['page_query_string'] 	= TRUE;
  		$this->pagination->customizePagination();
  		$this->mcontents['iOffset'] 					= $this->mcontents['iOffset'];
  		$this->pagination->initialize($this->aPaginationConfiguration);
@@ -98,9 +109,12 @@ class Gallery extends CI_Controller {
         $this->mcontents['load_js']['links'][] = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js';
         $this->mcontents['load_js'][] = 'home/exif.js';
         $this->mcontents['load_js'][] = 'home/captionbox.js';
+		$this->mcontents['load_js'][] = 'home/home_gallery.js';
 
 
  		loadTemplate('gallery/index');
+
+		//loadTemplate('test');
  	}
 
 
@@ -114,7 +128,7 @@ class Gallery extends CI_Controller {
 
 		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Picture Gallery ';
 
-		$this->mcontents['iLimit'] 				= 20;
+		$this->mcontents['iLimit'] 				= 10;
 
 		// only authorized personal can access this page.
 		$this->authentication->is_admin_logged_in(true, 'user/login');

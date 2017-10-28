@@ -26,63 +26,24 @@ class Home extends CI_Controller {
 
 								array(
 
-									"title"       => "caption1",
-									"description" => "description1",
+									"title"       => "Lorem ipsum",
+									"description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
 									"url"         => "http://localhost/prasad/sense/sense/asset/img/carousel_mages/image1.jpg"
 								),
 								array(
-									"title"       => "caption2",
-									"description" => "description2",
-									"url"         => "http://localhost/prasad/sense/sense/asset/img/carousel_mages/image1.jpg"
+									"title"       => "Lorem ipsum",
+									"description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+									"url"         => "http://localhost/prasad/sense/sense/asset/img/carousel_mages/image2.jpg"
 								),
 								array(
-									"title"       => "caption3",
-									"description" => "description3",
-									"url"         => "http://localhost/prasad/sense/sense/asset/img/carousel_mages/image1.jpg"
+									"title"       => "Lorem ipsum",
+									"description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+									"url"         => "http://localhost/prasad/sense/sense/asset/img/carousel_mages/image3.jpg"
 								)
 
 						  );
 
-		$home_gallery_images = array(
 
-									array(
-										"title"       => "caption1",
-										"description" => "Kerala has the lowest positive population growth rate in India, 3.44%;
-														  the highest Human Development Index (HDI),
-														  0.712 in 2015; the highest literacy rate, 93.91% in the 2011 census; the highest life expectancy,
-														  77 years;and the highest sex ratio, 1,084 women per 1,000 men. The state has witnessed significant emigration,",
-										"url_thump"   => "http://localhost/prasad/sense/sense/asset/img/home/img4_thumb.jpg",
-										"url"         => "http://localhost/prasad/sense/sense/asset/img/home/image1.jpg"
-									),
-
-									array(
-										"title"       => "caption2",
-										"description" => "Kerala has the lowest positive population growth rate in India, 3.44%;
-														  the highest Human Development Index (HDI),
-														  0.712 in 2015; the highest literacy rate, 93.91% in the 2011 census; the highest life expectancy,
-														  77 years;and the highest sex ratio, 1,084 women per 1,000 men. The state has witnessed significant emigration,",
-										"url_thump"   => "http://localhost/prasad/sense/sense/asset/img/home/img4_thumb.jpg",
-										"url"         => "http://localhost/prasad/sense/sense/asset/img/home/image2.jpg"
-									),
-									array(
-										"title"       => "caption3",
-										"description" => "Kerala has the lowest positive population growth rate in India, 3.44%;
-														  the highest Human Development Index (HDI),
-														  0.712 in 2015; the highest literacy rate, 93.91% in the 2011 census; the highest life expectancy,
-														  77 years;and the highest sex ratio, 1,084 women per 1,000 men. The state has witnessed significant emigration,",
-										"url_thump"   => "http://localhost/prasad/sense/sense/asset/img/home/img4_thumb.jpg",
-										"url"         => "http://localhost/prasad/sense/sense/asset/img/home/image3.jpg"
-									),
-									array(
-										"title"       => "caption4",
-										"description" => "Kerala has the lowest positive population growth rate in India, 3.44%;
-														  the highest Human Development Index (HDI),
-														  0.712 in 2015; the highest literacy rate, 93.91% in the 2011 census; the highest life expectancy,
-														  77 years;and the highest sex ratio, 1,084 women per 1,000 men. The state has witnessed significant emigration,",
-										"url_thump"   => "http://localhost/prasad/sense/sense/asset/img/home/img4_thumb.jpg",
-										"url"         => "http://localhost/prasad/sense/sense/asset/img/home/image4.jpg"
-									)
-								);
 		//redirect('survey');
 		$this->mcontents['carousel_images'] = $carousel_images;
 		$this->mcontents['iLimit'] 			= 4;
@@ -130,8 +91,6 @@ class Home extends CI_Controller {
  																			);
 
 
-		$this->mcontents['home_gallery_images'] = $home_gallery_images;
-
 		// carousel files
 		$this->mcontents['load_css'][] = 'carousel.css';
 
@@ -140,8 +99,7 @@ class Home extends CI_Controller {
 		$this->mcontents['load_js']['links'][] = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js';
 		$this->mcontents['load_js'][] = 'home/exif.js';
 		$this->mcontents['load_js'][] = 'home/captionbox.js';
-
-
+		$this->mcontents['load_js'][] = 'home/home_gallery.js';
 
 		loadTemplate('home/home');
 

@@ -1,5 +1,5 @@
         <?php foreach ( $aEnquiry as $data_enquiry ):?>
-        <h5 class="text-success">Name</h5><h4 class="text-primary"><?php echo $data_enquiry->firstname." ".$data_enquiry->lastname;?></h4>
+        <h2 class="text-primary"><?php echo $data_enquiry->firstname." ".$data_enquiry->lastname;?></h2>
         <h5 class="text-success">Email</h5><h4 class="text-primary"><?php echo $data_enquiry->email;?></h4>
         <h5 class="text-success">Contact Number</h5><h4 class="text-primary"> <?php echo $data_enquiry->contact_number;?></h4>
         <h5 class="text-success">Enquiry</h5><h4 class="text-primary"> <?php echo $data_enquiry->message;?></h4>
@@ -9,10 +9,10 @@
             <?php foreach ( $aEnquiry_reply as $data_reply ):?>
             <div class="row">
                 <div class="col-md-6">
-                    <?php if( $data_reply->author_id != 1) {?>
-                        <h5 class="text-success"><?php echo $data_reply->author_id ?><h4>
-                        <h4 class="text-primary"><?php echo $data_reply->message ?><h4>
-                    <?php } ?>
+                    <?php if( $data_reply->author_account == $this->session->ACCOUNT_NO ):?>
+                        <h5 class="text-success" style="text-align:left"><?php echo $this->session->FULL_NAME ?><h4>
+                        <h4 class="text-primary" style="text-align:left"><?php echo $data_reply->message ?><h4>
+                    <?php endif; ?>
                 </div>
                 <div class="col-md-6">
                 </div>
@@ -21,10 +21,10 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-6">
-                    <?php if( $data_reply->author_id == 1) {?>
-                        <h5 class="text-success"><?php echo $data_reply->author_id ?><h4>
-                        <h4 class="text-primary"><?php echo $data_reply->message ?><h4>
-                    <?php } ?>
+                    <?php if( $data_reply->author_account != $this->session->ACCOUNT_NO) :?>
+                        <h5 class="text-success" style="text-align:right"><?php echo $this->session->FULL_NAME ?><h4>
+                        <h4 class="text-primary" style="text-align:right"><?php echo $data_reply->message ?><h4>
+                    <?php endif; ?>
                 </div>
             </div>
              <?php endforeach; ?>

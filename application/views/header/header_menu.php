@@ -25,21 +25,15 @@
 
       <ul class="nav navbar-nav navbar-right">
 
-        <li class="">
-            <a href="<?php echo $c_base_url, 'about_us';?>" >About </a>
-        </li>
-
         <li>
             <a href="<?php echo $c_base_url;?>contact_us">Contact Us</a>
         </li>
 
         <li class="">
-            <a href="<?php echo $c_base_url, 'gallery';?>" >Gallery </a>
+            <a href="<?php echo $c_base_url;?>gallery" >Gallery </a>
         </li>
 
-		<?php if( $this->authentication->is_user_logged_in() ):?>
-
-		<li class="dropdown">
+        <li class="dropdown">
 
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 About  <span class="caret"></span>
@@ -51,20 +45,21 @@
                 </li>
                 <li><hr class="small"></li>
                 <li>
-                    <a href="<?php echo $c_base_url;?>" class="">Page # 1</a>
+                    <a href="<?php echo $c_base_url;?>trustees" class="">Trustees Of Institution</a>
                 </li>
                 <li>
-                    <a href="<?php echo $c_base_url;?>" class="">Page # 2</a>
+                    <a href="<?php echo $c_base_url;?>mission" class="">Mission And Vision</a>
                 </li>
                 <li>
-                    <a href="<?php echo $c_base_url;?>" class="">Page # 3</a>
-                </li>
-                <li>
-                    <a href="<?php echo $c_base_url;?>" class="">Page # 4</a>
+                    <a href="<?php echo $c_base_url;?>about_life" class="">About Life</a>
                 </li>
             </ul>
 
         </li>
+
+		<?php if( $this->authentication->is_user_logged_in() ):?>
+
+
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo s('USERNAME')?> <span class="caret"></span></a>

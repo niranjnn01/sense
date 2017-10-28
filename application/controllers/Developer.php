@@ -15,6 +15,32 @@ class Developer extends CI_Controller {
 		}
 	}
 
+public function email() {
+
+	$mail = array("to" 			=> array(
+
+        							"kiran.damac@mail.com" => "Kiran"
+
+    								),
+
+				  "from_email" => "kiran.damac@mail.com",
+				  "from_name"  => "Admin",
+				  "reply_to"   => array(
+
+			          				"kiran.damac@mail.com" => "Kiran"
+
+			      				  ),
+				  "template_name" => "contact_us_general",
+				  'subject' 	  => 'Subject',
+	  			  'mail_body' 	  => 'hello world',
+	  			  'mailer' 		  => $this->config->item('mailer')
+
+				);
+
+				$this->load->helper('custom_mail_helper');
+				sendMail_PHPMailer($mail);
+
+}
 	function img() {
 
 $sFile = 'C:\RAKESH\work\Test Files\Images\mountains\mountains-Kirkjufe_3374110a.jpg';

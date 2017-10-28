@@ -44,7 +44,12 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 // pages
+$route['contact_us'] = 'contact_us';
+$route['gallery'] = 'Gallery';
 $route['about_us'] = 'page/view/about_us';
+$route['trustees'] = 'page/view/trustees';
+$route['mission'] = 'page/view/mission';
+$route['about_life'] = 'page/view/about_life';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

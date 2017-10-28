@@ -14,6 +14,12 @@
             return $result;
         }
 
+        public function delete_category($id) {
+
+            $this->db->where('id', $id);
+            $this->db->delete('categories');
+        }
+
         public function get_categories_by_group( $sBy='id', $value ) {
 
             $sWhereField = 'CG.' . $sBy;

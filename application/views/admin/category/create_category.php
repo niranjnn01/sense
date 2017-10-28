@@ -1,11 +1,12 @@
 
-	  <h2 class="text-primary">Create New Category</h2><br>
-	  <a href="<?php echo base_url()?>category">Create Category </a>
-	  <a href="<?php echo base_url()?>category/category_group">Create Category Group </a>
+<a href="<?php echo base_url()?>category">List Categories</a>&nbsp;&nbsp;
+<a href="<?php echo base_url()?>category/create_category">Create Category </a>&nbsp;&nbsp;
+<a href="<?php echo base_url()?>category/create_category_group">Create Category Group </a><br><br>
+
 	  <h4 class="text-success"><?php echo $this->session->flashdata('message'); ?></h4>
 	  <h4 class="text-danger"><?php echo validation_errors(); ?></h4><br>
 
-	  <form class="forms" action="<?php echo base_url()?>category" method="post" style="width : 300px; height : 400px">
+	  <form class="forms" action="<?php echo base_url()?>category/create_category" method="post" style="width : 300px; height : 400px">
 
 		  <div class="form-group">
 			  <label>Name</label>

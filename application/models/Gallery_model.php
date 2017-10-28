@@ -71,7 +71,9 @@ class Gallery_model extends CI_Model{
 	 */
 	function getGalleryPicturesCount($aWhere=array(), $aOrderBy=array(), $aOrWhere=array()) {
 
-		$this->db->select('IG.*, C.title category_title');
+		$iCount = 0;
+
+		$this->db->select('COUNT(IG.id) count');
 
 		if( $aWhere ) {
 
@@ -86,17 +88,18 @@ class Gallery_model extends CI_Model{
 			}
 		}
 
-		if( $aOrderBy ) {
-
-			foreach($aOrderBy AS $sKey => $sItem){
-
-				$this->db->order_by($sKey, $sItem);
-			}
-
-		}
 
 		$this->db->join('categories C', 'IG.category = C.id');
-		return $this->db->count_all('image_gallery IG');
+
+		if( $oRow = $this->db->get('image_gallery IG')->row() ) {
+
+			$iCount = $oRow->count;
+		}
+
+		//p($this->db->last_query());
+
+		return $iCount;
+
 		//$this->db->get('image_gallery IG')->result();
 	}
 
@@ -139,10 +142,14 @@ class Gallery_model extends CI_Model{
 		}
 
 		$this->db->join('categories C', 'IG.category = C.id');
-		return $this->db->get('image_gallery IG')->result();
+		$query =  $this->db->get('image_gallery IG');
+
+		 //p($this->db->last_query());
+
+		return $query->result();
 	}
 
-// 020 26333817
+
 
 
 	function renameImageThumbnails ( $oResource, $sNewFileName ) {

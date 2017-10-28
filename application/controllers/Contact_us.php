@@ -13,13 +13,12 @@ class Contact_us extends CI_Controller {
     public function index(){
 
         $this->load->model('Contact_us_model');
+		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Contact Us';
 
 		if( ! empty($_POST) ) {
 
 
 			$this->form_validation->set_rules('first_name', 'First Name', 'required');
-			$this->form_validation->set_rules('middle_name', 'Middle Name', 'required');
-			$this->form_validation->set_rules('last_name', 'Last Name', 'required');
 			$this->form_validation->set_rules('email_id', 'Email', 'required|valid_email');
 			$this->form_validation->set_rules('contact_number', 'Contact Number', 'required');
 			$this->form_validation->set_rules('message', 'Message', 'required');
@@ -60,8 +59,8 @@ class Contact_us extends CI_Controller {
 					$aUserData['salutation']	= NULL;
 
 					$aUserData['first_name']	= safeText('first_name');
-					$aUserData['middle_name']	= safeText('middle_name');
-					$aUserData['last_name']		= safeText('last_name');
+					$aUserData['middle_name']	= "";
+					$aUserData['last_name']		= "";
 
 					$aUserData['email_id']		= safeText('email_id');
 					$aUserData['status']		= $this->mcontents['aUserStatusesFlipped']['active'];
@@ -107,9 +106,32 @@ class Contact_us extends CI_Controller {
 
 
 				$this->Contact_us_model->put_enquiry( $aEnquiry );
+				$this->db->select('success_message');
+				$this->db->where('id', $this->input->post('purpose'));
+	            $query = $this->db->get('enquiry_purposes');
+				$result = $query->result();
 
-				$this->session->set_flashdata('message','Success!!!');
+				foreach ($result as $key => $data) {
 
+					$success_message = $data->success_message;
+				}
+
+				$this->session->set_flashdata('message',$success_message);
+
+				$this->load->library('email'); // load email library
+			    $this->email->from('kiran.damac@gmail.com', 'Sender');
+			    $this->email->to($this->input->post('email_id'));
+			    $this->email->cc('');
+			    $this->email->subject('Your Subject');
+			    $this->email->message('Your Message');
+			    $this->email->attach(''); // attach file
+			    $this->email->attach('');
+			    if ($this->email->send())
+			        echo "Mail Sent!";
+			    else
+			        echo "There is error in sending mail!";
+
+				redirect(base_url().'Contact_us');
             }
         }
 
@@ -135,10 +157,10 @@ class Contact_us extends CI_Controller {
 		$message 	= $this->input->post('reply_message');
 		$aEnquiry_reply = array();
 
-			$aEnquiry_reply['enquiry_id']  = $enquiry_id;
-			$aEnquiry_reply['author_id']   = 1;
-			$aEnquiry_reply['message']     = $message;
-			$aEnquiry_reply['created_on']  = date('Y-m-d H:i:s');
+			$aEnquiry_reply['enquiry_id']		= $enquiry_id;
+			$aEnquiry_reply['author_account'] 	= $this->session->ACCOUNT_NO;
+			$aEnquiry_reply['message']     		= $message;
+			$aEnquiry_reply['created_on']  		= date('Y-m-d H:i:s');
 
 
 			$this->Contact_us_model->put_enquiry_reply( $aEnquiry_reply );
@@ -147,11 +169,13 @@ class Contact_us extends CI_Controller {
 
 	public function view_conversation() {
 
+		//p($this->session->ACCOUNT_NO);
+		//p($this->session);
+		//p($_SESSION);
 		$enquiry_id = $this->input->get('id');
 		$this->mcontents['aEnquiry'] 	   = $this->Contact_us_model->get_enquiry($enquiry_id);
 		$this->mcontents['aEnquiry_reply'] = $this->Contact_us_model->get_enquiry_reply($enquiry_id);
 		loadTemplate('Contact_us/conversation');
-		//this->load->view('enquiry/conversation', $aConversation_Data);
 	}
 
 	public function add_conversation() {
@@ -160,10 +184,10 @@ class Contact_us extends CI_Controller {
 		$enquiry_id = $this->input->get('id');
 		$aEnquiry_reply = array();
 
-			$aEnquiry_reply['enquiry_id']  = $enquiry_id;
-			$aEnquiry_reply['author_id']   = 1;
-			$aEnquiry_reply['message']     = $message;
-			$aEnquiry_reply['created_on']  = date('Y-m-d H:i:s');
+			$aEnquiry_reply['enquiry_id']  		= $enquiry_id;
+			$aEnquiry_reply['author_account']   = $this->session->ACCOUNT_NO;
+			$aEnquiry_reply['message']     		= $message;
+			$aEnquiry_reply['created_on']  		= date('Y-m-d H:i:s');
 
 		$this->Contact_us_model->put_enquiry_reply( $aEnquiry_reply );
 		$this->mcontents['aEnquiry'] 	   = $this->Contact_us_model->get_enquiry($enquiry_id);

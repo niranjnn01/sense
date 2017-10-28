@@ -35,8 +35,7 @@
                        class="text-info"
                        data-toggle="modal"
                        data-target="#enq_reply"
-                       data-enquiry="<?php echo $data->id ?>" >
-                       Give answer
+                       data-enquiry="<?php echo $data->id ?>">
                 </label><br>
                 <a href="<?php echo base_url()?>contact_us/view_conversation?id=<?php echo $data->id ?>"
                    data-enquiry="<?php echo $data->id ?>"

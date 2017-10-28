@@ -36,6 +36,7 @@ class Data_model extends CI_Model{
 			'category_status' => 'category_statuses',
 			'category_group_status' => 'category_group_statuses',
 			'image_gallery_item_statuses' => 'image_gallery_item_statuses',
+			'category'		=> 'categories'
 
 		);
 

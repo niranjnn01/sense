@@ -129,7 +129,8 @@ $autoload['model'] = array(
                             'user_model',
                             'account_model',
                             'data_model',
-                            'Contact_us_model'
+                            'Contact_us_model',
+                            'Categories_model'
                         );
 
 

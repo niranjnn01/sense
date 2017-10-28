@@ -5,7 +5,7 @@
 
     <?php foreach ( $aPictures as $key => $data ):?>
     <div class="col-md-3">
-        <figure>
+        <figure class="gallery-image">
             <a class="captionBoxImage" href="<?php echo getImage('picture_gallery', $data->image_name, 'large',array("only_url"=>true)); ?> ?>">
                 <img src="<?php echo getImage('picture_gallery', $data->image_name,'display_image',array("only_url"=>true)); ?>" alt="">
                 <figcaption class="customCaption">
@@ -19,4 +19,4 @@
 
 </div>
 
-<a href="<?php base_url()?>gallery"><label style="float: right;">View more images</label></a>
+<br><a href="<?php base_url()?>gallery"><label style="float: right;">View more images</label></a>
