@@ -402,7 +402,6 @@
 			//filter any repetitions that may have occured
 			$aFiles = array_unique(array_trim($aFiles));
 
-
 			// filter any files that are to be removed. (as specified from the controller)
 			if( isset( $CI->mcontents['avoid_'.$sType] ) ){
 
@@ -421,7 +420,7 @@
 			//Files are always regenerated in local environment
 			if (file_exists( $sParsedFileFullPath ) ){
 
-				if( ( ENVIRONMENT == 'development' ) || ( ENVIRONMENT_ == 'development-rakesh' ) || ( $regenerate == true ) ) {
+				if( ( ENVIRONMENT == 'development' ) || ( ENVIRONMENT == 'development-rakesh' ) || ( $regenerate == true ) ) {
 
 					@unlink($sParsedFileFullPath);
 

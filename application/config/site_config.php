@@ -83,8 +83,11 @@ $config['config_variables_for_js_file'] = array(
  * File paths are relative to the asset_path
  */
 $config['default_css_files'] = array(
-                            'style.css'
+                            'style.css',
+                            'moderna/style.css'
                         );
+
+$this->mcontents['load_css'][]          = 'moderna/style.css';
 
 
 $config['default_css_files_admin'] 		= array();

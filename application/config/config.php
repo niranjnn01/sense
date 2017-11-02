@@ -17,7 +17,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost/prasad/sense/sense/';
+if(ENVIRONMENT == 'testing'){
+
+
+    $config['base_url'] = 'http://sense.org.in/';
+}
+
+else {
+
+    $config['base_url'] = 'http://localhost/prasad/sense/sense/';
+
+}
 
 
 /*

@@ -28,17 +28,17 @@ class Home extends CI_Controller {
 
 									"title"       => "Lorem ipsum",
 									"description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-									"url"         => "http://localhost/prasad/sense/sense/asset/img/carousel_mages/image1.jpg"
+									"url"         => $this->config->item('asset_url')."img/moderna/slides/1.jpg"
 								),
 								array(
 									"title"       => "Lorem ipsum",
 									"description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-									"url"         => "http://localhost/prasad/sense/sense/asset/img/carousel_mages/image2.jpg"
+									"url"         => $this->config->item('asset_url')."img/moderna/slides/2.jpg"
 								),
 								array(
 									"title"       => "Lorem ipsum",
 									"description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-									"url"         => "http://localhost/prasad/sense/sense/asset/img/carousel_mages/image3.jpg"
+									"url"         => $this->config->item('asset_url')."img/moderna/slides/3.jpg"
 								)
 
 						  );
@@ -91,19 +91,32 @@ class Home extends CI_Controller {
  																			);
 
 
-		// carousel files
-		$this->mcontents['load_css'][] = 'carousel.css';
+		// // carousel files
+		// $this->mcontents['load_css'][] = 'carousel.css';
+		//
+		// // pop up files
+		// $this->mcontents['load_css'][] = 'captionbox.css';
+		// $this->mcontents['load_js']['links'][] = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js';
+		// $this->mcontents['load_js'][] = 'home/exif.js';
+		// $this->mcontents['load_js'][] = 'home/captionbox.js';
+		// $this->mcontents['load_js'][] = 'home/home_gallery.js';
 
-		// pop up files
-		$this->mcontents['load_css'][] = 'captionbox.css';
-		$this->mcontents['load_js']['links'][] = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js';
-		$this->mcontents['load_js'][] = 'home/exif.js';
-		$this->mcontents['load_js'][] = 'home/captionbox.js';
-		$this->mcontents['load_js'][] = 'home/home_gallery.js';
 
-		loadTemplate('home/home');
+		$this->mcontents['load_css'][] = 'moderna/fancybox/jquery.fancybox.css';
+		$this->mcontents['load_css'][] = 'moderna/jcarousel.css';
+		$this->mcontents['load_css'][] = 'moderna/flexslider.css';
 
-		//p($this->session->userdata);
+
+
+		$this->mcontents['load_js'][] = 'moderna/jquery.fancybox.pack.js';
+		//$this->mcontents['load_js'][] = 'moderna/jquery.fancybox-media.js';
+		//$this->mcontents['load_js'][] = 'moderna/google-code-prettify/prettify.js';
+		$this->mcontents['load_js'][] = 'moderna/jquery.flexslider.js';
+		//$this->mcontents['load_js'][] = 'moderna/animate.js';
+		$this->mcontents['load_js'][] = 'moderna/custom.js';
+
+
+        loadTemplate('home/index');
 	}
 
 

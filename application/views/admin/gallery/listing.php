@@ -23,7 +23,7 @@
 		</td>
 
 	    <td>
-			<?php echo getImage('picture_gallery', $oItem->image_name, 'display_image',array("only_url"=>true));?>
+			<?php echo getImage('picture_gallery', $oItem->image_name, 'display_image',array("only_url"=>false));?>
 		</td>
 		<td>
             <h4><?php echo $oItem->title;?></h4>

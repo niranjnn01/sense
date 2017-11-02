@@ -99,4 +99,20 @@ class Contact_us_model extends CI_Model{
 		return $result;
 	}
 
+	function getEmailTemplateBy($sField='uid', $sValue, $aWhere=array() ) {
+
+	    $sField = 'ET.'.$sField;
+
+	        $aWhere[$sField] = $sValue;
+
+	        if( $aWhere ) {
+	            $this->db->where($aWhere);
+	        }
+
+	    $query = $this->db->get('email_templates ET');
+
+
+
+	    return $query->row();
+	  }
 }

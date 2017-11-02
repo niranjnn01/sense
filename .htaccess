@@ -45,7 +45,7 @@ ErrorDocument 500 default
 
 #
 #    The Options directive controls which server features are available in a particular directory.
-#    
+#
 #
 #    Prevent directory listings
 #Options All -Indexes
@@ -53,10 +53,12 @@ ErrorDocument 500 default
 
 #
 #    URL REWRITE FOR CODEIGNITER LINKS
-#    
 #
+#
+
+#RewriteBase / 
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond $1 !^(index\.php|asset|images|uploads|fonts|robots\.txt|phpinfo\.php|captcha|logs|sitemap\.xml|wp_iframe_home\.php)
 RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
-

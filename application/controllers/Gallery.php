@@ -36,8 +36,7 @@ class Gallery extends CI_Controller {
  		// get image categories
  		$this->load->model('categories_model');
  		$aPictureGalleryCategories = $this->categories_model->get_categories_by_group('name', $category_group );
- 		$this->mcontents['aPictureGalleryCategories'] = $this->data_model->getDataInFormat($aPictureGalleryCategories, 'id-name');
- 		$this->mcontents['aPictureGalleryCategoriesFlipped'] = $this->data_model->getDataInFormat($aPictureGalleryCategories, 'id-name');
+ 		$this->mcontents['aPictureGalleryCategories'] = $this->data_model->getDataInFormat($aPictureGalleryCategories, 'id-title');
  		$this->mcontents['aPictureGalleryCategoriesFlipped'] = array_flip($this->mcontents['aPictureGalleryCategories']);
 
 
@@ -103,18 +102,28 @@ class Gallery extends CI_Controller {
  		$this->mcontents['sPagination'] 				= $this->pagination->create_links();
  		/* Pagination - End */
 
-
 		// pop up files
-        $this->mcontents['load_css'][] = 'captionbox.css';
+        /*$this->mcontents['load_css'][] = 'captionbox.css';
         $this->mcontents['load_js']['links'][] = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js';
         $this->mcontents['load_js'][] = 'home/exif.js';
         $this->mcontents['load_js'][] = 'home/captionbox.js';
-		$this->mcontents['load_js'][] = 'home/home_gallery.js';
+		$this->mcontents['load_js'][] = 'home/home_gallery.js';*/
+		//moderna
 
+		$this->mcontents['load_css'][] = 'moderna/fancybox/jquery.fancybox.css';
+		//$this->mcontents['load_css'][] = 'moderna/flexslider.css';
+		//$this->mcontents['load_css'][] = 'moderna/default.css';
+
+		$this->mcontents['load_js'][] = 'moderna/jquery.fancybox.pack.js';
+		$this->mcontents['load_js'][] = 'moderna/jquery.fancybox-media.js';
+		//$this->mcontents['load_js'][] = 'moderna/google-code-prettify/prettify.js';
+		//$this->mcontents['load_js'][] = 'moderna/jquery.flexslider.js';
+		//$this->mcontents['load_js'][] = 'moderna/animate.js';
+		$this->mcontents['load_js'][] = 'moderna/custom.js';
+		//$this->mcontents['load_js'][] = 'moderna/portfolio/jquery.quicksand.js';
+		//$this->mcontents['load_js'][] = 'moderna/portfolio/setting.js';
 
  		loadTemplate('gallery/index');
-
-		//loadTemplate('test');
  	}
 
 

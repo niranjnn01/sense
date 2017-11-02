@@ -80,13 +80,16 @@
 	}
 	// --- END CI CODE
 
+// echo $system_path;
+// exit;
+
 	$_environment = 'development';
 	switch( $system_path ) {
 
 	   case 'C:\wamp64\www\prasad\sense\sense\system\\':
 		   $_environment = 'development'; // local, development, testing, production
 		   break;
-	   case '/home/damaccpanel/public_html/':
+	   case '/home/damaccpanel/public_html/sense.org.in/system/':
 		   $_environment = 'testing';
 		   break;
 	   default :
@@ -110,12 +113,13 @@
 
 switch (ENVIRONMENT) {
 
+	case 'testing':
 	case 'development':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
 	break;
 
-	case 'testing':
+
 	case 'production':
 		ini_set('display_errors', 0);
 		if (version_compare(PHP_VERSION, '5.3', '>='))

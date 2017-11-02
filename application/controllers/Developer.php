@@ -353,6 +353,23 @@ $sFile = 'C:\RAKESH\work\Test Files\Images\arunachalam.jpg';
 
 	}
 
+	function flush_data() {
+
+		$this->db->empty_table('enquiry_replies');
+		echo $this->db->last_query();
+
+		$this->db->empty_table('enquiries');
+		echo $this->db->last_query();
+
+
+		$this->db->where('type !=', '1');
+		$this->db->empty_table('users');
+		echo $this->db->last_query();
+
+
+
+	}
+
 }
 
 /* End of file developer.php */

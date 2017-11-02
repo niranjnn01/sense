@@ -1,58 +1,204 @@
-<?php showMessage();?>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <div class="row">
-
-        <div class="col-md-12">
-
-            <div class="row carousel-holder">
-
-                <div class="col">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="500000">
-
-                        <div class="carousel-inner">
-                            <?php foreach ( $carousel_images as $key => $data ):?>
-                            <div class="item <?php echo $key == 0 ? 'active' : '';?>">
-
-                                        <img class="slide-image" src="<?php echo $data['url']?>" alt="">
-
-                                            <div class="carousel-caption box">
-                                                <div class="row">
-                                                    <div class="col-md-12 col-md-offset-1">
-                                                        <h4 class="text-left image_caption"><?php echo $data['title'] ?></h3>
-                                                        <p class="text-left"><?php echo $data['description'] ?></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                            </div>
-                            <?php endforeach; ?>
-
-                                <a class="left carousel-control arrow_position" href="#carousel-example-generic" data-slide="prev">
-                                    <span class="fa fa-angle-left " style="font-size:48px"></span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                    <span class="fa fa-angle-right" style="font-size:48px"></span>
-                                </a>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="text-primary text-left">Life</h3><br>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-        </div>
-
-        <?php $this->load->view('home/home_gallery') ?>
+		<!-- start header -->
+		<section id="featured">
+			<!-- start slider -->
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<!-- Slider -->
+						<div id="main-slider" class="flexslider">
+							<ul class="slides">
+								<li>
+									<img src="http://localhost/prasad/sense/sense/asset/img/moderna/slides/1.jpg" alt="" />
+									<div class="flex-caption">
+										<h3>Modern Design</h3>
+										<p>Duis fermentum auctor ligula ac malesuada. Mauris et metus odio, in pulvinar urna</p>
+										<a href="#" class="btn btn-theme">Learn More</a>
+									</div>
+								</li>
+								<li>
+									<img src="http://localhost/prasad/sense/sense/asset/img/moderna/slides/2.jpg" alt="" />
+									<div class="flex-caption">
+										<h3>Fully Responsive</h3>
+										<p>Sodales neque vitae justo sollicitudin aliquet sit amet diam curabitur sed fermentum.</p>
+										<a href="#" class="btn btn-theme">Learn More</a>
+									</div>
+								</li>
+								<li>
+									<img src="http://localhost/prasad/sense/sense/asset/img/moderna/slides/3.jpg" alt="" />
+									<div class="flex-caption">
+										<h3>Clean & Fast</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit donec mer lacinia.</p>
+										<a href="#" class="btn btn-theme">Learn More</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- end slider -->
+					</div>
+				</div>
+			</div>
 
 
-<div id="captionBox"></div>
+
+		</section>
+
+
+
+		<section class="callaction">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="big-cta">
+							<div class="cta-text">
+								<h2><span>Moderna</span> HTML Business Template</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row">
+							<div class="col-lg-3">
+								<div class="box">
+									<div class="box-gray aligncenter">
+										<h4>Fully responsive</h4>
+										<div class="icon">
+											<i class="fa fa-desktop fa-3x"></i>
+										</div>
+										<p>
+											Voluptatem accusantium doloremque laudantium sprea totam rem aperiam.
+										</p>
+
+									</div>
+									<div class="box-bottom">
+										<a href="#">Learn more</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="box">
+									<div class="box-gray aligncenter">
+										<h4>Modern Style</h4>
+										<div class="icon">
+											<i class="fa fa-pagelines fa-3x"></i>
+										</div>
+										<p>
+											Voluptatem accusantium doloremque laudantium sprea totam rem aperiam.
+										</p>
+
+									</div>
+									<div class="box-bottom">
+										<a href="#">Learn more</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="box">
+									<div class="box-gray aligncenter">
+										<h4>Customizable</h4>
+										<div class="icon">
+											<i class="fa fa-edit fa-3x"></i>
+										</div>
+										<p>
+											Voluptatem accusantium doloremque laudantium sprea totam rem aperiam.
+										</p>
+
+									</div>
+									<div class="box-bottom">
+										<a href="#">Learn more</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="box">
+									<div class="box-gray aligncenter">
+										<h4>Valid HTML5</h4>
+										<div class="icon">
+											<i class="fa fa-code fa-3x"></i>
+										</div>
+										<p>
+											Voluptatem accusantium doloremque laudantium sprea totam rem aperiam.
+										</p>
+
+									</div>
+									<div class="box-bottom">
+										<a href="#">Learn more</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- divider -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="solidline">
+						</div>
+					</div>
+				</div>
+				<!-- end divider -->
+				<!-- Portfolio Projects -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="heading">Recent Works</h4>
+						<div class="row">
+							<section id="projects">
+								<ul id="thumbs" class="portfolio">
+									<!-- Item Project and Filter Name -->
+									<li class="col-lg-3 design" data-id="id-0" data-type="web">
+										<div class="item-thumbs">
+											<!-- Fancybox - Gallery Enabled - Title - Full Image -->
+											<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Work 1" href="http://localhost/prasad/sense/sense/asset/img/moderna/works/1.jpg">
+						<span class="overlay-img"></span>
+						<span class="overlay-img-thumb font-icon-plus"></span>
+						</a>
+											<!-- Thumb Image and Description -->
+											<img src="img/works/1.jpg" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis elementum odio. Curabitur pellentesque, dolor vel pharetra mollis.">
+										</div>
+									</li>
+									<!-- End Item Project -->
+									<!-- Item Project and Filter Name -->
+									<li class="item-thumbs col-lg-3 design" data-id="id-1" data-type="icon">
+										<!-- Fancybox - Gallery Enabled - Title - Full Image -->
+										<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Work 2" href="http://localhost/prasad/sense/sense/asset/img/moderna/works/2.jpg">
+						<span class="overlay-img"></span>
+						<span class="overlay-img-thumb font-icon-plus"></span>
+						</a>
+										<!-- Thumb Image and Description -->
+										<img src="img/works/2.jpg" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis elementum odio. Curabitur pellentesque, dolor vel pharetra mollis.">
+									</li>
+									<!-- End Item Project -->
+									<!-- Item Project and Filter Name -->
+									<li class="item-thumbs col-lg-3 photography" data-id="id-2" data-type="illustrator">
+										<!-- Fancybox - Gallery Enabled - Title - Full Image -->
+										<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Work 3" href="http://localhost/prasad/sense/sense/asset/img/moderna/works/3.jpg">
+						<span class="overlay-img"></span>
+						<span class="overlay-img-thumb font-icon-plus"></span>
+						</a>
+										<!-- Thumb Image and Description -->
+										<img src="img/works/3.jpg" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis elementum odio. Curabitur pellentesque, dolor vel pharetra mollis.">
+									</li>
+									<!-- End Item Project -->
+									<!-- Item Project and Filter Name -->
+									<li class="item-thumbs col-lg-3 photography" data-id="id-2" data-type="illustrator">
+										<!-- Fancybox - Gallery Enabled - Title - Full Image -->
+										<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Work 4" href="http://localhost/prasad/sense/sense/asset/img/moderna/works/4.jpg">
+						<span class="overlay-img"></span>
+						<span class="overlay-img-thumb font-icon-plus"></span>
+						</a>
+										<!-- Thumb Image and Description -->
+										<img src="http://localhost/prasad/sense/sense/asset/img/moderna/works/4.jpg" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis elementum odio. Curabitur pellentesque, dolor vel pharetra mollis.">
+									</li>
+									<!-- End Item Project -->
+								</ul>
+							</section>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>

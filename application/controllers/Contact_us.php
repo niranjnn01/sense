@@ -29,7 +29,7 @@ class Contact_us extends CI_Controller {
 				$iAccountNo = 0;
 				$aUserData = $aProfileData = array();
 				// verify uniqueness of email id
-				if( ! $this->account_model->isEmailExists( $this->input->post('email') ) ) {
+				if( ! $this->account_model->isEmailExists( $this->input->post('email_id') ) ) {
 
 					$aUserData = $aProfileData = array();
 
@@ -92,51 +92,143 @@ class Contact_us extends CI_Controller {
 							$this->db->trans_complete();
 						}
 					}
+
+					$aEnquiry['account_number']		= $iAccountNo;
+					$aEnquiry['firstname']			= $this->input->post('first_name');
+					//$aEnquiry['middlename']			= $this->input->post('middle_name');
+					$aEnquiry['lastname']			= $this->input->post('last_name');
+					$aEnquiry['email']				= $this->input->post('email_id');
+					$aEnquiry['contact_number'] 	= $this->input->post('contact_number');
+					$aEnquiry['message']  			= $this->input->post('message');
+					$aEnquiry['purpose']  			= $this->input->post('purpose');
+					$aEnquiry['created_on']  		= date('Y-m-d H:i:s');
+
+
+					$this->Contact_us_model->put_enquiry( $aEnquiry );
 				}
 
-				$aEnquiry['account_number']		= $iAccountNo;
-				$aEnquiry['firstname']			= $this->input->post('first_name');
-				//$aEnquiry['middlename']			= $this->input->post('middle_name');
-				$aEnquiry['lastname']			= $this->input->post('last_name');
-				$aEnquiry['email']				= $this->input->post('email_id');
-				$aEnquiry['contact_number'] 	= $this->input->post('contact_number');
-				$aEnquiry['message']  			= $this->input->post('message');
-				$aEnquiry['purpose']  			= $this->input->post('purpose');
-				$aEnquiry['created_on']  		= date('Y-m-d H:i:s');
+				else {
 
+					$this->db->select('*');
+				    $this->db->where('email', $this->input->post('email_id'));
+				    $enquiry = $this->db->get('enquiries');
+					$enquiry = $enquiry->result();
+					print_r($enquiry);
 
-				$this->Contact_us_model->put_enquiry( $aEnquiry );
-				$this->db->select('success_message');
-				$this->db->where('id', $this->input->post('purpose'));
-	            $query = $this->db->get('enquiry_purposes');
-				$result = $query->result();
+					$aEnquiry_reply = array();
+					foreach($enquiry as $key => $data):
 
-				foreach ($result as $key => $data) {
+						$aEnquiry_reply['enquiry_id']  		= $data->id;
+						$aEnquiry_reply['author_account']   = $data->account_number;
+						$aEnquiry_reply['message']     		= $this->input->post('message');
+						$aEnquiry_reply['created_on']  		= date('Y-m-d H:i:s');
 
-					$success_message = $data->success_message;
+					endforeach;
+
+					$this->Contact_us_model->put_enquiry_reply( $aEnquiry_reply );
+
 				}
 
-				$this->session->set_flashdata('message',$success_message);
+				$this->load->model('contact_us_model');
+		        // get the general purpose template
+		        $oPurposeDetails = $this->contact_us_model->getPurposeBy('name', 'general');
 
-				$this->load->library('email'); // load email library
-			    $this->email->from('kiran.damac@gmail.com', 'Sender');
-			    $this->email->to($this->input->post('email_id'));
-			    $this->email->cc('');
-			    $this->email->subject('Your Subject');
-			    $this->email->message('Your Message');
-			    $this->email->attach(''); // attach file
-			    $this->email->attach('');
-			    if ($this->email->send())
-			        echo "Mail Sent!";
-			    else
-			        echo "There is error in sending mail!";
+		        // populate the key value pairs to replace into email body and subject.
+		        $aEmailData = array(
+		          'receiver_name' => $oPurposeDetails->reciever_name,
+		          'name'       => safeText('first_name'),
+		          'email'     => safeText('email_id'),
+		          'telephone'   => safeText('contact_number'),
+		          'message'     => safeHtml('message'),
+		        );
 
-				redirect(base_url().'Contact_us');
+		        $oEmailTemplate = $this->contact_us_model->getEmailTemplateBy('id', $oPurposeDetails->email_template_id);
+
+		        //USING PHPMAILER TO SEND EMAIL
+		        $aSettings = array(
+
+		          'to'       => array($oPurposeDetails->target_email => $oPurposeDetails->reciever_name),
+		          'from_email'   => $aEmailData['email'],
+		          'from_name'    => $aEmailData['name'],
+		          'cc'       => array(),
+		          'reply_to'     => array($aEmailData['email'] => $aEmailData['name']), // email_id => name pairs
+		          'bcc'       => array(),
+		          'email_contents' => $aEmailData, // placeholder keywords to be replaced with this data
+		          'template_name' => $oEmailTemplate->name, //name of template to be used
+
+		          //'preview'     => true,
+
+		        );
+//
+// p($aEmailData);
+// p($aSettings);
+// exit;
+
+		        // send email.
+		        $this->load->helper('custom_mail');
+
+		        if( !sendMail_PHPMailer($aSettings) ) {
+
+		          sf('error_message', 'There was some problem. Please try back later.');
+		          redirect('contact_us');
+
+		        } else {
+
+		          sf('success_message', $oPurposeDetails->success_message);
+		          redirect('contact_us');
+		        }
+
+				//
+				// $this->db->select('success_message');
+				// $this->db->where('id', $this->input->post('purpose'));
+	            // $query = $this->db->get('enquiry_purposes');
+				// $result = $query->result();
+				//
+				// foreach ($result as $key => $data) {
+				//
+				// 	$success_message = $data->success_message;
+				// }
+				//
+				//
+				// $this->session->set_flashdata('message',$success_message);
+				//
+				// $this->load->library('email'); // load email library
+			    // $this->email->from('kiran.damac@gmail.com', 'Sender');
+			    // $this->email->to($this->input->post('email_id'));
+			    // $this->email->cc('');
+			    // $this->email->subject('Your Subject');
+			    // $this->email->message('Your Message');
+			    // $this->email->attach(''); // attach file
+			    // $this->email->attach('');
+			    // if ($this->email->send())
+			    //     echo "Mail Sent!";
+			    // else
+			    //     echo "There is error in sending mail!";
+
+				// redirect(base_url().'Contact_us');
             }
         }
 
         $this->mcontents['aEnquiry_purposes'] = $this->data_model->getDataItem('enquiry_purposes', 'id-title');
-        loadTemplate('Contact_us/Contact_us');
+
+		//$this->mcontents['load_css'][] = 'moderna/fancybox/jquery.fancybox.css';
+		//$this->mcontents['load_css'][] = 'moderna/jcarousel.css';
+		//$this->mcontents['load_css'][] = 'moderna/flexslider.css';
+
+		$this->mcontents['load_js'][] = 'moderna/jquery.fancybox.pack.js';
+		$this->mcontents['load_js'][] = 'moderna/jquery.fancybox-media.js';
+		//$this->mcontents['load_js'][] = 'moderna/google-code-prettify/prettify.js';
+		$this->mcontents['load_js'][] = 'moderna/jquery.flexslider.js';
+		$this->mcontents['load_js'][] = 'moderna/animate.js';
+		$this->mcontents['load_js'][] = 'moderna/custom.js';
+		//$this->mcontents['load_js'][] = 'moderna/portfolio/jquery.quicksand.js';
+		//$this->mcontents['load_js'][] = 'moderna/portfolio/setting.js';
+
+
+		requireFrontEndValidation();
+        $this->mcontents['load_js'][] = 'validation/contact_us.js';
+
+        loadTemplate('contact_us/contact_us');
     }
 
 	public function list_enquiries() {
@@ -145,8 +237,7 @@ class Contact_us extends CI_Controller {
 		$this->mcontents['aEnquiry_purposes'] = $this->data_model->getDataItem('enquiry_purposes', 'id-title');
 		$this->mcontents['aEnquiries'] = $this->Contact_us_model->get_enquiries();
 		$this->mcontents['page_heading'] = 'Enquiries';
-		$this->mcontents['load_js'][] = 'list_enquiries/reply.js';
-		loadAdminTemplate('Contact_us/enquiries/list_enquiries');
+		loadAdminTemplate('contact_us/enquiries/list_enquiries');
 
 	}
 
@@ -175,7 +266,7 @@ class Contact_us extends CI_Controller {
 		$enquiry_id = $this->input->get('id');
 		$this->mcontents['aEnquiry'] 	   = $this->Contact_us_model->get_enquiry($enquiry_id);
 		$this->mcontents['aEnquiry_reply'] = $this->Contact_us_model->get_enquiry_reply($enquiry_id);
-		loadTemplate('Contact_us/conversation');
+		loadTemplate('contact_us/conversation');
 	}
 
 	public function add_conversation() {
