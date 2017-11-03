@@ -849,8 +849,7 @@
 			if($sItem == 'account'){
 
 				$CI->db->where('account_no', $iItemId);
-				$CI->db->where('id', $iCurrUserId);
-
+				
 				if($CI->db->get('users')->row()) {
 
 					$bReturn = true;

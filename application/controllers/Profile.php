@@ -138,7 +138,7 @@ class Profile extends CI_Controller {
 		// used when an admin is editing someones profile.
 		$iAccountNo = $iAccountNo ? $iAccountNo : s('ACCOUNT_NO');
 
-
+// p($iAccountNo);
 		//see if the profile is being edited by its rightful owner, or the admin
 		if( s('ACCOUNT_NO') != $iAccountNo ) {
 

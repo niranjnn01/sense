@@ -304,4 +304,40 @@ class User_model extends CI_Model{
 
 		return $aSalutationsInFormat;
 	}
+
+	function delete_users() {
+
+
+		// delete all profile pictures.
+		$this->load->helper('custom_file');
+
+		//select account of admin.
+		$this->db->select('account_no');
+		$this->db->where('type','1' );
+		$query = $this->db->get('users');
+		$result = $query->result();
+		foreach($result as $key => $data):
+			$admin_account_number = $data->account_no;
+		endforeach;
+
+	 	$this->db->select('image_name');
+		$this->db->where('account_no !=',$admin_account_number );
+		$query = $this->db->get('profile_pictures');
+		$profile_pics = $query->result();
+		foreach($profile_pics as $key => $data):
+			deleteFile('image', 'profile_pic', $data->image_name);
+			echo $data->image_name;
+		endforeach;
+
+		$this->db->where('user_account_no !=',$admin_account_number );
+		$this->db->empty_table('user_profile');
+
+		$this->db->where('account_no !=',$admin_account_number );
+		$this->db->empty_table('profile_pictures');
+		//echo $this->db->last_query();
+
+		$this->db->where('type !=', '1');
+		$this->db->empty_table('users');
+		//echo $this->db->last_query();
+	}
 }

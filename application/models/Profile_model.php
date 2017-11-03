@@ -58,7 +58,7 @@ class Profile_model extends CI_Model{
 			UP.profile_picture,
 			UP.about_me,
 			UP.about_me_excerpt,
-			pp.image_name,
+			PP.image_name,
 			CONCAT_WS(' ', U.first_name, U.middle_name, U.last_name ) full_name,
 			";
 

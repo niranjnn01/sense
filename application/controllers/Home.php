@@ -18,7 +18,6 @@ class Home extends CI_Controller {
 
 	function index() {
 
-
 		$this->load->model('gallery_model');
 		$this->mcontents['sCurrentMainMenu'] = 'home';
 

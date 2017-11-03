@@ -156,13 +156,14 @@ class User extends CI_Controller {
 				$iAccountNo = $this->common_model->generateUniqueNumber($aConfig);
 
 				//salt the password
-				$sPassword 	= safeText('password');
+				// $sPassword 	= safeText('password');
+				$sPassword 	= $iAccountNo;
 				$sSalt 		= $this->authentication->getSalt();
 				$sHash 		= $this->account_model->getPasswordHash($sSalt, $sPassword);
 
 
 				$aUserData['account_no']	= $iAccountNo;
-				$aUserData['username'] 		= NULL;
+				$aUserData['username'] 		= $iAccountNo;
 
 				$aUserData['salt']			= $sSalt;
 				$aUserData['hash']			= $sHash;

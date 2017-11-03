@@ -65,7 +65,7 @@
 
 			<h4 style="text-align: center;">We are here...</h4>
 			<div class="map">
-				<div id="google-map" data-latitude="40.713732" data-longitude="-74.0092704"></div>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15782.070642323455!2d76.906188!3d8.546117!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x98324eb5aafb3778!2sCollege+of+Engineering+Trivandrum!5e0!3m2!1sen!2sin!4v1509702509058" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 			</div>
-			
+
 		</section>

@@ -33,7 +33,7 @@ class Profile_picture extends CI_Controller {
 		if( $this->authentication->is_user_logged_in(true, 'user/login') ) {
 
 			if(!$this->authentication->is_admin_logged_in()) {
-
+// p('test');
 				if( ! isOwner('account', $iAccountNo, s('USERID')) ) {
 
 					//tried to change someone elses profile pic
@@ -53,7 +53,7 @@ class Profile_picture extends CI_Controller {
 			sf('error_message', 'User does not exists');
 			redirect('profile/edit/'.$iAccountNo);
 		}
-
+// p($this->mcontents['oProfilePicture']);
 
 		$sOldFileName = $this->mcontents['oProfilePicture']->image_name;
 
