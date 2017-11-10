@@ -101,16 +101,16 @@
 	array(
 		'section_title' => 'Contact Us',
 		'links' => array(
-            array(
-				'title' => 'Add Purpose',
-				'uri' => 'contact_purpose/add_purpose',
-                'opened' => false
-			),
-			array(
-				'title' => 'List Purposes',
-				'uri' => 'contact_purpose/listing',
-                'opened' => false
-			),
+            // array(
+			// 	'title' => 'Add Purpose',
+			// 	'uri' => 'contact_purpose/add_purpose',
+            //     'opened' => false
+			// ),
+			// array(
+			// 	'title' => 'List Purposes',
+			// 	'uri' => 'contact_purpose/listing',
+            //     'opened' => false
+			// ),
             array(
 				'title' => 'List Enquiries',
 				'uri' => 'contact_us/list_enquiries',

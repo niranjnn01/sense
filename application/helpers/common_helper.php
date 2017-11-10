@@ -849,7 +849,7 @@
 			if($sItem == 'account'){
 
 				$CI->db->where('account_no', $iItemId);
-				
+
 				if($CI->db->get('users')->row()) {
 
 					$bReturn = true;
@@ -1176,7 +1176,7 @@
 	function setPostLoginRedirect($sUriString=''){
 		$CI = &get_instance();
 
-		$uri_string = $sUriString ? $sUriString : $CI->uri->uri_string();
+		$uri_string = $sUriString ? $sUriString : current_complete_uri();
 
 		if($uri_string != 'user/login'){
 			ss('post_login_redirect', $uri_string);

@@ -20,12 +20,15 @@ class User extends CI_Controller {
 	public function index() {
 
 		if( $this->authentication->is_user_logged_in (true, 'user/login') ){
-			$this->home();
+
+			redirect('home');
+
 		}
 	}
 
 
 	function login () {
+
 
 		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Login';
 
@@ -43,6 +46,8 @@ class User extends CI_Controller {
 
 					if('' == $login_details['error']) {
 
+
+
 						if( @$login_details['message'] ) {
 
 							sf('success_message', $login_details['message']);
@@ -53,23 +58,47 @@ class User extends CI_Controller {
 
 						if( $post_login_redirect = s('post_login_redirect') ) {
 
-							us('post_login_redirect');
+							// p($this->session->ACCOUNT_NO);
+							// p($this->session->USER_TYPE);
+							// exit;
+							//
 							redirect($post_login_redirect);
 
-						} else {
+						}
+						else {
 
 							if($this->authentication->is_admin_logged_in()){
 
 								redirect('admin');
 
-							} else {
+							}
+							else {
 
-								redirect('home');
+
+
+
+// http://localhost/prasad/sense/sense/contact_us/view_conversation?id=30
+
+								// if guest user , redirect to enquiry conversation page.
+								if($this->session->USER_TYPE == $this->mcontents['aUserTypesFlipped']['guest']) {
+
+									// get corresponding enquiry
+									$this->load->model('Contact_us_model');
+									$oEnquiry = $this->Contact_us_model->getenquiryby('account_number',$this->session->ACCOUNT_NO);
+									redirect('contact_us/view_conversation?id='.$oEnquiry->id);
+								}
+								else {
+									redirect('home');
+								}
+
+
 							}
 
 						}
 
-					}else{
+					}
+
+					else{
 					 	$this->merror['error']	=	$login_details['error'];
 					}
 				}
@@ -526,7 +555,8 @@ class User extends CI_Controller {
 	 */
 	function home(){
 
-		redirect('home');
+
+		loadTemplate('user/home');
 	}
 
 

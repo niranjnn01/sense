@@ -1,7 +1,4 @@
-		<!-- start header -->
-		<section id="featured">
-			<!-- start slider -->
-			<div class="container">
+
 				<div class="row">
 					<div class="col-lg-12">
 						<!-- Slider -->
@@ -200,5 +197,4 @@
 					</div>
 				</div>
 
-			</div>
-		</section>
+			

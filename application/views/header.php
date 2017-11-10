@@ -72,7 +72,11 @@
 							</li>
 							<li><a href="<?php echo $c_base_url;?>gallery" >Gallery</a></li>
 							<li><a href="<?php echo $c_base_url;?>contact_us">Contact Us</a></li>
+							<?php if($this->authentication->is_user_logged_in(false)): ?>
 
+								<li><a href="<?php echo $c_base_url;?>logout">Logout</a></li>
+
+							<?php endif ?>
 
 						</ul>
 					</div>
@@ -80,3 +84,5 @@
 			</div>
 		</header>
 		<!-- end header -->
+		<section id="content">
+			<div class="container">

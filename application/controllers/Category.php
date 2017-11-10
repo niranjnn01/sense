@@ -29,6 +29,7 @@ class Category extends CI_Controller {
 		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Create Category';
 		$this->load->model('Categories_model');
 		//p($this->mcontents['aCategory']);
+		$this->authentication->is_admin_logged_in(true,'user/login');
 		if( !empty($_POST) ) {
 
 			$this->form_validation->set_rules('name', 'Name', 'required|is_unique[categories.name]');
@@ -79,7 +80,7 @@ class Category extends CI_Controller {
 
 	public function edit_category() {
 
-
+		$this->authentication->is_admin_logged_in(true,'user/login');
 		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Edit Category';
 		$id = $this->input->get('id');
 		$this->load->model('Categories_model');
@@ -101,8 +102,14 @@ class Category extends CI_Controller {
 
 		}
 
+		if( !$aCategory = $this->Categories_model->get_category_by($id) ){
+
+				redirect('Category');
+
+		}
+
 		$aCategory_groups = $this->Categories_model->get_category_groups();
-		$aCategory = $this->Categories_model->get_category_by_id($id);
+
 		$aCategory_status = $this->Categories_model->get_category_status();
 
 		$this->mcontents['aCategory_groups'] = $aCategory_groups;
@@ -115,6 +122,7 @@ class Category extends CI_Controller {
 
 	public function delete_category() {
 
+		$this->authentication->is_admin_logged_in(true,'user/login');
 		$id = $this->input->get('id');
 		$this->Categories_model->delete_category($id);
 		redirect(base_url().'category');
@@ -123,6 +131,7 @@ class Category extends CI_Controller {
 
 	public function create_category_group() {
 
+		$this->authentication->is_admin_logged_in(true,'user/login');
 		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Create Category Group';
 		$this->load->model('Categories_model');
 
@@ -156,6 +165,8 @@ class Category extends CI_Controller {
 
 	public function edit_category_group() {
 
+		$this->authentication->is_admin_logged_in(true,'user/login');
+
 		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Edit Category Group';
 		$this->load->model('Categories_model');
 		$id = $this->input->get('id');
@@ -173,6 +184,12 @@ class Category extends CI_Controller {
 				redirect(base_url().'category');
 
 			}
+
+		}
+
+		if( !$aCategory = $this->Categories_model->get_category_group_by($id) ){
+
+				redirect('Category');
 
 		}
 

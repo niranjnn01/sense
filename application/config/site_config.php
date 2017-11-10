@@ -169,13 +169,14 @@ $config['static_image_path']	= $config['asset_path'].$config['asset_img_folder_n
 |--------------------------------------------------------------------------
 |
 */
-$config['website_domain_name']		= 'base.damacsolutions.com';
-$config['website_title']			= 'BASE Project';
-$config['website_title_abbrv']		= 'BASE'; // usefull when sending SMS, to use in short URLs etc
+$config['website_domain_name']		= 'sense.org.in';
+$config['website_title']			= 'SENSE';
+$config['website_title_abbrv']		= 'SENSE'; // usefull when sending SMS, to use in short URLs etc
 $config['copyright_text']			= '';
 $config['website_official_name']	= '';
 //$config['logo_image_name']          = 'logo.jpg';
 $config['logo_image_name']          = 'logo.jpg';
+$config['password_recovery_token_life']			= 600;
 
 $config['no_reply_email_id']    = 'noreply@' . $config['website_domain_name'];
 $config['no_reply_email_from']  = 'No Reply';

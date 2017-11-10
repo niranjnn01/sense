@@ -37,7 +37,7 @@
 														<span class="overlay-img-thumb font-icon-plus"></span>
 													</a>
 													<!-- Thumb Image and Description -->
-													<img src="<?php echo getImage('picture_gallery', $data->image_name,'display_image',array("only_url"=>true)); ?>" alt="<?php echo $data->description ?>">
+													<img src="<?php echo getImage('picture_gallery', $data->image_name,'large',array("only_url"=>true)); ?>" alt="<?php echo $data->description ?>">
 												</li>
 												<!-- End Item Project -->
 
@@ -59,18 +59,16 @@
 						</div>
 
 						</div>
-						<div class="row">
-							<span style="float:center;"><?php echo $sPagination;?></span>
+						<div style="width:10%; margin: 0px auto 0px auto">
+							<?php echo $sPagination;?>
 						</div>
+
+							<!--<div id="pagination">
+							<span class="all">Page 1 of 3</span>
+							<span class="current">1</span>
+							<a href="#" class="inactive">2</a>
+							<a href="#" class="inactive">3</a>
+						</div>-->
 				</div>
 			</div>
 		</section>
-
-	<!-- javascript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-
-
-</body>
-
-</html>

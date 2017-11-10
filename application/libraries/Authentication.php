@@ -297,9 +297,11 @@ class Authentication {
 
 
 		$sRedirectTo = $sRedirectTo ? $sRedirectTo : c('login_uri_segment');
+
 		if( ($this->CI->session->userdata ('USER_TYPE') == $this->aUserTypeFlipped['admin']) ){
 			return true;
 		} else {
+
 			setPostLoginRedirect();
 
 

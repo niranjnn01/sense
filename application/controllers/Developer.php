@@ -364,6 +364,14 @@ $sFile = 'C:\RAKESH\work\Test Files\Images\arunachalam.jpg';
 		$this->load->model('User_model');
 		$this->User_model->delete_users();
 
+	}
+
+	function remove_enquiries(){
+
+		$this->db->empty_table('enquiry_replies');
+		//echo $this->db->last_query();
+
+		$this->db->empty_table('enquiries');
 
 	}
 

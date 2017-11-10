@@ -12,7 +12,10 @@ class Contact_us extends CI_Controller {
 
     public function index(){
 
-        $this->load->model('Contact_us_model');
+
+		$this->load->model('contact_us_model');
+
+		$this->load->library('emailer');
 		$this->mcontents['page_heading'] = $this->mcontents['page_title'] = 'Contact Us';
 
 		if( ! empty($_POST) ) {
@@ -22,6 +25,9 @@ class Contact_us extends CI_Controller {
 			$this->form_validation->set_rules('email_id', 'Email', 'required|valid_email');
 			$this->form_validation->set_rules('contact_number', 'Contact Number', 'required');
 			$this->form_validation->set_rules('message', 'Message', 'required');
+
+			// get the general purpose template
+			$oPurposeDetails = $this->contact_us_model->getPurposeBy('name', 'general');
 
 			if( $this->form_validation->run() == TRUE) {
 
@@ -41,14 +47,18 @@ class Contact_us extends CI_Controller {
 								);
 					$iAccountNo = $this->common_model->generateUniqueNumber($aConfig);
 
+
+					$this->load->helper('string');
 					//salt the password
-					$sPassword 	= $iAccountNo;
+
+					$sPassword 	= random_string('alnum',6);
+					log_message('error', 'username-'.$this->input->post('email_id').', password-'.$sPassword);
 					$sSalt 		= $this->authentication->getSalt();
 					$sHash 		= $this->account_model->getPasswordHash($sSalt, $sPassword);
 
 
 					$aUserData['account_no']	= $iAccountNo;
-					$aUserData['username'] 		= $iAccountNo;
+					$aUserData['username'] 		= $this->input->post('email_id');
 
 					$aUserData['salt']			= $sSalt;
 					$aUserData['hash']			= $sHash;
@@ -100,11 +110,42 @@ class Contact_us extends CI_Controller {
 					$aEnquiry['email']				= $this->input->post('email_id');
 					$aEnquiry['contact_number'] 	= $this->input->post('contact_number');
 					$aEnquiry['message']  			= $this->input->post('message');
-					$aEnquiry['purpose']  			= $this->input->post('purpose');
+					//$aEnquiry['purpose']  			= $this->input->post('purpose');
 					$aEnquiry['created_on']  		= date('Y-m-d H:i:s');
 
 
-					$this->Contact_us_model->put_enquiry( $aEnquiry );
+					$new_enquiry = $this->Contact_us_model->put_enquiry( $aEnquiry );
+
+
+
+					//sending mail to new user to follw the enquiry.
+					// populate the key value pairs to replace into email body and subject.
+				   $aEmailData = array(
+					 'receiver_name' => safeText('first_name'),
+					 'email'	   => 'sense123@gmail.com',
+					 'name'        => 'SENSE',
+					 'subject'	   => 'Enquiry created',
+					 'message'     => 'Your Enquiry is Created, Username:'.safeText('email_id').'and Password'.$sPassword.'click the link to view http://sense.org.in/contact_us/view_conversation?id='.$new_enquiry->id
+				   );
+
+				   $oEmailTemplate = $this->contact_us_model->getEmailTemplateBy('id', $oPurposeDetails->email_template_id);
+
+				   //USING PHPMAILER TO SEND EMAIL
+				   $aSettings = array(
+
+					   'to'       => array( safeText('email_id') => safeText('first_name') ),
+     		          'from_email'   => $aEmailData['email'],
+     		          'from_name'    => $aEmailData['name'],
+     		          'cc'       => array(),
+     		          'reply_to'     => array($aEmailData['email'] => $aEmailData['name']), // email_id => name pairs
+     		          'bcc'       => array(),
+     		          'email_contents' => $aEmailData, // placeholder keywords to be replaced with this data
+     		          'template_name' => $oEmailTemplate->name, //name of template to be used
+
+				   );
+
+				   list($bMailSentStatus, $sErrorMessage) = $this->emailer->send($aSettings);
+
 				}
 
 				else {
@@ -113,7 +154,6 @@ class Contact_us extends CI_Controller {
 				    $this->db->where('email', $this->input->post('email_id'));
 				    $enquiry = $this->db->get('enquiries');
 					$enquiry = $enquiry->result();
-					print_r($enquiry);
 
 					$aEnquiry_reply = array();
 					foreach($enquiry as $key => $data):
@@ -129,15 +169,15 @@ class Contact_us extends CI_Controller {
 
 				}
 
-				$this->load->model('contact_us_model');
-		        // get the general purpose template
-		        $oPurposeDetails = $this->contact_us_model->getPurposeBy('name', 'general');
+				//send the email
+
+
 
 		        // populate the key value pairs to replace into email body and subject.
 		        $aEmailData = array(
 		          'receiver_name' => $oPurposeDetails->reciever_name,
-		          'name'       => safeText('first_name'),
-		          'email'     => safeText('email_id'),
+		          'name'        => safeText('first_name'),
+		          'email'     	=> safeText('email_id'),
 		          'telephone'   => safeText('contact_number'),
 		          'message'     => safeHtml('message'),
 		        );
@@ -156,18 +196,13 @@ class Contact_us extends CI_Controller {
 		          'email_contents' => $aEmailData, // placeholder keywords to be replaced with this data
 		          'template_name' => $oEmailTemplate->name, //name of template to be used
 
-		          //'preview'     => true,
+
 
 		        );
-//
-// p($aEmailData);
-// p($aSettings);
-// exit;
 
-		        // send email.
-		        $this->load->helper('custom_mail');
+				list($bMailSentStatus, $sErrorMessage) = $this->emailer->send($aSettings);
 
-		        if( !sendMail_PHPMailer($aSettings) ) {
+				if( ! $bMailSentStatus ) {
 
 		          sf('error_message', 'There was some problem. Please try back later.');
 		          redirect('contact_us');
@@ -178,34 +213,7 @@ class Contact_us extends CI_Controller {
 		          redirect('contact_us');
 		        }
 
-				//
-				// $this->db->select('success_message');
-				// $this->db->where('id', $this->input->post('purpose'));
-	            // $query = $this->db->get('enquiry_purposes');
-				// $result = $query->result();
-				//
-				// foreach ($result as $key => $data) {
-				//
-				// 	$success_message = $data->success_message;
-				// }
-				//
-				//
-				// $this->session->set_flashdata('message',$success_message);
-				//
-				// $this->load->library('email'); // load email library
-			    // $this->email->from('kiran.damac@gmail.com', 'Sender');
-			    // $this->email->to($this->input->post('email_id'));
-			    // $this->email->cc('');
-			    // $this->email->subject('Your Subject');
-			    // $this->email->message('Your Message');
-			    // $this->email->attach(''); // attach file
-			    // $this->email->attach('');
-			    // if ($this->email->send())
-			    //     echo "Mail Sent!";
-			    // else
-			    //     echo "There is error in sending mail!";
 
-				// redirect(base_url().'Contact_us');
             }
         }
 
@@ -233,11 +241,14 @@ class Contact_us extends CI_Controller {
 
 	public function list_enquiries() {
 
-		$this->load->model('Contact_us_model');
-		$this->mcontents['aEnquiry_purposes'] = $this->data_model->getDataItem('enquiry_purposes', 'id-title');
-		$this->mcontents['aEnquiries'] = $this->Contact_us_model->get_enquiries();
-		$this->mcontents['page_heading'] = 'Enquiries';
-		loadAdminTemplate('contact_us/enquiries/list_enquiries');
+
+		$this->authentication->is_admin_logged_in(true,'user/login');
+
+			$this->load->model('Contact_us_model');
+			$this->mcontents['aEnquiry_purposes'] = $this->data_model->getDataItem('enquiry_purposes', 'id-title');
+			$this->mcontents['aEnquiries'] = $this->Contact_us_model->get_enquiries();
+			$this->mcontents['page_heading'] = 'Enquiries';
+			loadAdminTemplate('contact_us/enquiries/list_enquiries');
 
 	}
 
@@ -258,31 +269,88 @@ class Contact_us extends CI_Controller {
 			redirect(base_url().'contact_us/list_enquiries');
 	}
 
-	public function view_conversation() {
+	//finding the conversation page of user who logged in
+	public function get_conversation() {
 
-		//p($this->session->ACCOUNT_NO);
-		//p($this->session);
-		//p($_SESSION);
-		$enquiry_id = $this->input->get('id');
-		$this->mcontents['aEnquiry'] 	   = $this->Contact_us_model->get_enquiry($enquiry_id);
-		$this->mcontents['aEnquiry_reply'] = $this->Contact_us_model->get_enquiry_reply($enquiry_id);
-		loadTemplate('contact_us/conversation');
+		$account_no = safeText('account_no', false, 'get');
+		//get enquiry using account number.
+		if( !$enquiry = $this->Contact_us_model->getenquiryby('account_number',$account_no ) )
+		{
+			if( $this->authentication->is_admin_logged_in(false) ) {
+
+				redirect('contact_us/list_enquiries');
+
+			}
+			else {
+
+				redirect('home');
+			}
+
+		}
+
+		$_GET['id'] = $enquiry->id;
+		$this->view_conversation();
 	}
 
-	public function add_conversation() {
 
-		$message 	= $this->input->post('message');
-		$enquiry_id = $this->input->get('id');
-		$aEnquiry_reply = array();
 
+	public function view_conversation() {
+
+
+		// only logged in user has access
+		$this->authentication->is_user_logged_in(true, 'user/login');
+
+		// get enquiry id
+		$enquiry_id = safeText('id', false, 'get');
+
+
+
+
+
+
+		// only the enquirer or admin can see the enquiry.
+		$aWhere = array('account_number' => s('ACCOUNT_NO'));
+
+		if( ! $this->mcontents['oEnquiry'] 	   = $this->Contact_us_model->get_enquiry_details($enquiry_id, $aWhere) ) {
+
+			if( $this->mcontents['oEnquiry'] = $this->Contact_us_model->get_enquiry_details($enquiry_id) ) {
+
+				if( ! $this->authentication->is_admin_logged_in(false) ) {
+					sf('error_message', 'Enquiry not found');
+					redirect('user/home');
+				}
+			}
+			else {
+				sf('error_message', 'Enquiry not found');
+				redirect('user/home');
+			}
+		}
+
+
+
+
+		if( ! empty($_POST) ) {
+
+			$message 	= $this->input->post('message');
 			$aEnquiry_reply['enquiry_id']  		= $enquiry_id;
 			$aEnquiry_reply['author_account']   = $this->session->ACCOUNT_NO;
 			$aEnquiry_reply['message']     		= $message;
 			$aEnquiry_reply['created_on']  		= date('Y-m-d H:i:s');
 
-		$this->Contact_us_model->put_enquiry_reply( $aEnquiry_reply );
-		$this->mcontents['aEnquiry'] 	   = $this->Contact_us_model->get_enquiry($enquiry_id);
-		$this->mcontents['aEnquiry_reply'] = $this->Contact_us_model->get_enquiry_reply($enquiry_id);
-		loadTemplate('Contact_us/conversation');
+			$this->Contact_us_model->put_enquiry_reply( $aEnquiry_reply );
+		}
+
+
+		$this->mcontents['aEnquiry_reply'] = $this->Contact_us_model->get_enquiry_reply_details($enquiry_id);
+
+// p($this->mcontents['aEnquiry_reply']);
+// exit;
+
+		requireFrontEndValidation();
+		$this->mcontents['load_js'][] = 'validation/conversation.js';
+
+		loadTemplate('contact_us/conversation');
+
 	}
+
 }

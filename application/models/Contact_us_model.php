@@ -62,11 +62,17 @@ class Contact_us_model extends CI_Model{
 		return $this->db->get('enquiry_purposes EP')->result();
 	}
 
+
+
 	public function put_enquiry( $aEnquiry ) {
 
 		$this->db->insert('enquiries' , $aEnquiry);
+	    $last_row = $this->db->select('*')->order_by('id',"desc")->limit(1)->get('enquiries')->row();
+		return $last_row;
 	}
 
+
+	//get a list of enquiries.
 	public function get_enquiries() {
 
 		$query = $this->db->get('enquiries');
@@ -75,21 +81,72 @@ class Contact_us_model extends CI_Model{
 		return $result;
 	}
 
-	public function get_enquiry( $enquiry_id ) {
+
+
+	public function get_enquiry( $enquiry_id, $aWhere=array() ) {
 
 		$this->db->select('*');
+
 		$this->db->where('id', $enquiry_id);
+
+		if( $aWhere ) {
+            $this->db->where($aWhere);
+        }
+
 		$query = $this->db->get('enquiries');
 		$result = $query->result();
 		return $result;
 	}
 
+
+	public function get_enquiry_details( $enquiry_id, $aWhere=array() ) {
+
+		$this->db->select('
+						E.*,
+						CONCAT_WS(" ", U.first_name, U.middle_name, U.last_name ) full_name
+						');
+
+		$this->db->where('id', $enquiry_id);
+
+		if( $aWhere ) {
+			$this->db->where($aWhere);
+		}
+
+		$this->db->join('users U', 'U.account_no = E.account_number');
+
+		$query = $this->db->get('enquiries E');
+		$result = $query->result();
+		return $result;
+	}
+
+
+	//get an enquiry.
+	public function getenquiryby($sField='id', $sValue, $aWhere=array()){
+
+		$sField = 'E.'.$sField;
+
+        $aWhere[$sField] = $sValue;
+
+        if( $aWhere ) {
+            $this->db->where($aWhere);
+        }
+
+		$query = $this->db->get('enquiries E');
+
+		//p($this->db->last_query());
+
+		return $query->row();
+
+	}
+
+	//put an enquiry reply message.
 	public function put_enquiry_reply( $aEnquiry_reply ) {
 
 		$this->db->insert('enquiry_replies' , $aEnquiry_reply);
 
 	}
 
+	//get list of enquiry reply by id.
 	public function get_enquiry_reply( $enquiry_id ) {
 
 		$this->db->select('*');
@@ -98,6 +155,24 @@ class Contact_us_model extends CI_Model{
 		$result = $query->result();
 		return $result;
 	}
+
+	//get list of enquiry reply by id.
+	public function get_enquiry_reply_details( $enquiry_id ) {
+
+		$this->db->select('
+						ER.*,
+						CONCAT_WS(" ", U.first_name, U.middle_name, U.last_name ) full_name,
+						U.type user_type
+						');
+		$this->db->where('enquiry_id', $enquiry_id);
+
+		$this->db->join('users U', 'U.account_no = ER.author_account');
+
+		$query = $this->db->get('enquiry_replies ER');
+		$result = $query->result();
+		return $result;
+	}
+
 
 	function getEmailTemplateBy($sField='uid', $sValue, $aWhere=array() ) {
 

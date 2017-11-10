@@ -16,8 +16,9 @@ class Page extends CI_Controller {
 
         $this->mcontents['sCurrentMainMenu']    = 'sitepages';
 
-		list($this->mcontents['aPageStatuses'], $this->mcontents['aPageStatusTitles'])
-			= $this->data_model->getDataItem('page_statuses', array('id-name', 'id-title'));
+		$this->mcontents['aPageStatuses'] = $this->data_model->getDataItem('page_statuses', 'id-name');
+		$this->mcontents['aPageStatusTitles'] = $this->data_model->getDataItem('page_statuses', 'id-title');
+
 
 		$this->mcontents['aPageStatusesFlipped'] = array_flip($this->mcontents['aPageStatuses']);
 

@@ -9,12 +9,9 @@ class Contact_purpose extends CI_Controller {
 
 		$this->load->model('contact_us_model');
 
-        list(
-			$this->mcontents['aPurposeStatus'],
-			$this->mcontents['aPurposeStatusTitles']) =  $this->data_model->getDataItem(
-																						'enquiry_purpose_statuses',
-																						array('id-name', 'id-title')
-																					);
+		$this->mcontents['aPurposeStatus'] = $this->data_model->getDataItem('enquiry_purpose_statuses', 'id-name');
+		$this->mcontents['aPurposeStatusTitles'] = $this->data_model->getDataItem('enquiry_purpose_statuses', 'id-title');
+        
 		$this->mcontents['aPurposeStatusFlipped'] = array_flip($this->mcontents['aPurposeStatus']);
 	}
 
@@ -102,6 +99,7 @@ class Contact_purpose extends CI_Controller {
                                 'description'           => safeText('description'),
                                 'target_email'          => safeText('email'),
                                 'reciever_name'         => safeText('reciever_name'),
+								'email_template_id'     => 2,
                                 'status'                => $this->mcontents['aPurposeStatusFlipped']['active'],
                                 'success_message'       => safeText('success_message'),
                             );

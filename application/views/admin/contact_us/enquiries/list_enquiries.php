@@ -27,7 +27,7 @@
                            <?php if( $data->purpose == $key ):?>
                                 <?php echo $purpose; ?>
                            <?php endif;?>
-               <?php endforeach;?>
+                <?php endforeach;?>
            </td>
             <td> <?php echo date("d M Y",strtotime($data->created_on))?> </td>
             <td><label for="reply"

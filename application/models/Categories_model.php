@@ -38,14 +38,30 @@
             return $result;
         }
 
-        public function get_category_by_id($category_id) {
+        public function get_category_by($sValue, $sField='id', $aWhere=array()) {
 
-            $this->db->select('*');
-            $this->db->where('id', $category_id);
-            $query = $this->db->get('categories');
-            $result = $query->result();
 
-            return $result;
+            $sField = 'C.'.$sField;
+
+            $aWhere[$sField] = $sValue;
+
+            if( $aWhere ) {
+                $this->db->where($aWhere);
+            }
+
+    		$query = $this->db->get('categories C');
+
+    		//p($this->db->last_query());
+
+    		return $query->result();
+
+
+            // $this->db->select('*');
+            // $this->db->where('id', $category_id);
+            // $query = $this->db->get('categories');
+            // $result = $query->result();
+            //
+            // return $result;
         }
 
         public function put_category_group( $aCategory_group ) {
@@ -57,22 +73,26 @@
 
             $query = $this->db->get('category_group');
             $result = $query->result();
-            // $result_set = array (
-            //                             'aCategory_group' => $result
-            //                     );
+
             return $result;
         }
 
-        public function get_category_group_by_id($group_id) {
+        public function get_category_group_by($sValue, $sField='id', $aWhere=array()) {
 
-            $this->db->select('*');
-            $this->db->where('id', $group_id);
-            $query = $this->db->get('category_group');
-            $result = $query->result();
-            $result_set = array (
-                                        'aCategory_group' => $result
-                                );
-            return $result_set;
+            $sField = 'CG.'.$sField;
+
+            $aWhere[$sField] = $sValue;
+
+            if( $aWhere ) {
+                $this->db->where($aWhere);
+            }
+
+    		$query = $this->db->get('category_group CG');
+
+    		//p($this->db->last_query());
+
+    		return $query->result();
+
         }
 
         public function update_category_groups($aCategory_group) {

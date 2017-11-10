@@ -53,9 +53,9 @@ $autoload['packages'] = array(APPPATH.'third_party');
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','session', 'form_validation', 'authentication');
+$autoload['libraries'] = array('session','database','form_validation', 'authentication');
 
-/*
+/*$autoload['libraries'] = array('session','database');
 | -------------------------------------------------------------------
 |  Auto-load Helper Files
 | -------------------------------------------------------------------

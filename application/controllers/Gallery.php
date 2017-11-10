@@ -10,6 +10,8 @@ class Gallery extends CI_Controller {
 		$this->load->model('gallery_model');
 
 		$this->mcontents['aImageGalleryItemStatuses'] 		= $this->data_model->getDataItem('image_gallery_item_statuses');
+
+		//p($this->mcontents['aImageGalleryItemStatuses']);
 		$this->mcontents['aImageGalleryItemStatusTitles'] 	= $this->data_model->getDataItem('image_gallery_item_statuses', 'id-title');
 
 		$this->mcontents['aImageGalleryItemStatusesFlipped'] = array_flip($this->mcontents['aImageGalleryItemStatuses']);

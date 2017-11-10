@@ -199,7 +199,7 @@ class Account extends CI_Controller {
 	function password_recovery() {
 
 		$this->mcontents['page_heading'] = $this->mcontents['page_title'] 	= 'Password Recovery';
-
+		$this->load->library('emailer');
 
 
 		if( isset($_POST) && ! empty($_POST) ) {
@@ -229,15 +229,17 @@ class Account extends CI_Controller {
 				$sTokenPurpose = 'password_recovery';
 				$sToken = $this->token_model->generateToken($sTokenPurpose, $oUser->account_no);
 
+				$oToken = $this->token_model->getPurpose($sTokenPurpose);
+
 				// prepare email contents
 				$aEmailContents = array(
 					'password_recovery_link' => c('base_url').'account/reset_password/' . $sToken . "/" . $oUser->account_no,
 					'receiver_name' => $oUser->full_name,
 				);
 
-				p($aEmailContents);
-				p('Email functionality pending');
-				exit;
+				 // p($aEmailContents);
+				 // p('Email functionality pending');
+				 // exit;
 
 
 				// send email to the user
@@ -249,12 +251,13 @@ class Account extends CI_Controller {
 					'template_name' 	=> 'password_regeneration_link', //name of template to be used
 				);
 
-				sendMail_PHPMailer($aSettings);
+				list($bMailSentStatus, $sErrorMessage) = $this->emailer->send($aSettings);
+
 			}
 
 			sf('success_message',
 				"If an account is found with the information you provided, will send the password recovery process to the registered email.<br/>" .
-				"Please note that this link will expire in the next " . ($this->config->item('password_recovery_token_life')/ 3600) . " hours"
+				"Please note that this link will expire in the next " . ( $oToken->time_to_live / 3600 ) . " hours"
 			);
 			redirect('account/password_recovery');
 		}
