@@ -13,7 +13,8 @@
     <link rel="apple-touch-glyphicon glyphicon-precomposed" sizes="114x114" href="<?php echo $this->config->item('base_url');?>asset/img/apple-touch-glyphicon glyphicon-114-precomposed.png"/>
     <link rel="apple-touch-glyphicon glyphicon-precomposed" sizes="72x72" href="<?php echo $this->config->item('base_url');?>asset/img/apple-touch-glyphicon glyphicon-72-precomposed.png"/>
     <link rel="apple-touch-glyphicon glyphicon-precomposed" href="<?php echo $this->config->item('base_url');?>asset/img/apple-touch-glyphicon glyphicon-57-precomposed.png"/>
-
+    <!-- Theme skin -->
+    <link href="<?php echo base_url()?>asset/themes/default_theme/css/moderna/default.css" rel="stylesheet" />
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <?php echo load_files('css');?>

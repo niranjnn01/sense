@@ -114,7 +114,7 @@ class Gallery extends CI_Controller {
 
 		$this->mcontents['load_css'][] = 'moderna/fancybox/jquery.fancybox.css';
 		//$this->mcontents['load_css'][] = 'moderna/flexslider.css';
-		//$this->mcontents['load_css'][] = 'moderna/default.css';
+		$this->mcontents['load_css'][] = 'moderna/default.css';
 
 		$this->mcontents['load_js'][] = 'moderna/jquery.fancybox.pack.js';
 		$this->mcontents['load_js'][] = 'moderna/jquery.fancybox-media.js';

@@ -73,12 +73,42 @@ class Contact_us_model extends CI_Model{
 
 
 	//get a list of enquiries.
-	public function get_enquiries() {
+	public function get_enquiries($iLimit=0, $iOffset=0, $aWhere=array(), $aOrderBy=array(), $aOrWhere=array()) {
 
-		$query = $this->db->get('enquiries');
-		$this->db->order_by("created_on", "desc");
+		$this->db->select('E.*');
+
+		if( $iLimit || $iOffset ) {
+
+			$this->db->limit($iLimit, $iOffset);
+		}
+
+		if( $aWhere ) {
+
+			$this->db->where($aWhere, false);
+
+		}
+
+		if( $aOrWhere ) {
+
+			foreach($aOrWhere AS $aItem){
+				$this->db->or_where($aItem, false);
+			}
+		}
+
+		if( $aOrderBy ) {
+
+			foreach($aOrderBy AS $sKey => $sItem){
+
+				$this->db->order_by($sKey, $sItem);
+			}
+
+		}
+
+		$query = $this->db->get('enquiries E');
+		// $this->db->order_by("created_on", "desc");
 		$result = $query->result();
 		return $result;
+
 	}
 
 
@@ -96,6 +126,38 @@ class Contact_us_model extends CI_Model{
 		$query = $this->db->get('enquiries');
 		$result = $query->result();
 		return $result;
+	}
+
+
+	public function get_enquiry_count($aWhere=array(), $aOrderBy=array(), $aOrWhere=array()) {
+
+		$iCount = 0;
+
+		$this->db->select('COUNT(E.id) count');
+
+		if( $aWhere ) {
+
+			$this->db->where($aWhere, false);
+
+		}
+
+		if( $aOrWhere ) {
+
+			foreach($aOrWhere AS $aItem){
+				$this->db->or_where($aItem, false);
+			}
+		}
+
+		if( $oRow = $this->db->get('enquiries E')->row() ) {
+
+			$iCount = $oRow->count;
+		}
+
+		//p($this->db->last_query());
+
+		return $iCount;
+
+
 	}
 
 

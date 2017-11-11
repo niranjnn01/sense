@@ -316,6 +316,7 @@ class User_model extends CI_Model{
 		$this->db->where('type','1' );
 		$query = $this->db->get('users');
 		$result = $query->result();
+
 		foreach($result as $key => $data):
 			$admin_account_number = $data->account_no;
 		endforeach;
@@ -324,6 +325,7 @@ class User_model extends CI_Model{
 		$this->db->where('account_no !=',$admin_account_number );
 		$query = $this->db->get('profile_pictures');
 		$profile_pics = $query->result();
+
 		foreach($profile_pics as $key => $data):
 			deleteFile('image', 'profile_pic', $data->image_name);
 			echo $data->image_name;

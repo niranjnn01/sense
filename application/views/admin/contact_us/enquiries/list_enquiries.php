@@ -2,13 +2,12 @@
     <table class="table  table-striped table-bordered table-hover  table-condensed">
 
         <tr>
-          <th class="text-info" >ID</th>
-          <th class="text-info">ACCOUNT NUMBER</th>
+          <th class="text-info">SI</th>
           <th class="text-info">NAME</th>
           <th class="text-info">EMAIL</th>
           <th class="text-info">CONTACT NUMBER</th>
           <th class="text-info">MESSAGE</th>
-          <th class="text-info">PURPOSE</th>
+          	<!--<th class="text-info">PURPOSE</th>-->
           <th class="text-info">RECEIVED ON</th>
           <th class="text-info">ACTIONS</th>
         </tr>
@@ -16,19 +15,18 @@
         <?php foreach ( $aEnquiries as $key => $data ):?>
 
             <tr>
-            <td> <?php echo ++$key ?> </td>
-            <td> <?php echo $data->account_number ?></td>
+            <td> <?php echo $key + $iOffset + 1; ?> </td>
             <td> <?php echo $data->firstname." ".$data->lastname ?> </td>
             <td> <?php echo $data->email ?> </td>
             <td> <?php echo $data->contact_number ?> </td>
             <td> <?php echo $data->message ?> </td>
-            <td>
-                <?php foreach ( $aEnquiry_purposes as $key => $purpose ):?>
+            <!-- <td>
+                <?php /*foreach ( $aEnquiry_purposes as $key => $purpose ):?>
                            <?php if( $data->purpose == $key ):?>
                                 <?php echo $purpose; ?>
                            <?php endif;?>
-                <?php endforeach;?>
-           </td>
+                <?php endforeach;*/?>
+           </td> -->
             <td> <?php echo date("d M Y",strtotime($data->created_on))?> </td>
             <td><label for="reply"
                        name="reply"
@@ -83,3 +81,8 @@
         </div>
 
     </table>
+
+    <br><br>
+    <div class="row" style="width:30%; margin: 0px auto 0px auto">
+    	<?php echo $sPagination;?>
+    </div>

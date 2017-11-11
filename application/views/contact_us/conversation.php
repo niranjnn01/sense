@@ -15,14 +15,12 @@
                         <div>
                             <span class="text-info h4"><?php echo $data_enquiry->firstname?></span>
                             &nbsp;<?php echo date("h i a d M Y ",strtotime($data_enquiry->created_on))?>
-                            <br><br><p class="text-info">Enquiry  :<?php echo $data_enquiry->message;?></p>
+                            <br><br><p class="text-info"><span class="h4">Enquiry  :</span><?php echo $data_enquiry->message;?></p>
                         </div>
                     </div>
 
             </div>
         </div>
-
-
         <?php endforeach; ?>
 
 

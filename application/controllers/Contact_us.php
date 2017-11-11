@@ -125,7 +125,7 @@ class Contact_us extends CI_Controller {
 					 'email'	   => 'sense123@gmail.com',
 					 'name'        => 'SENSE',
 					 'subject'	   => 'Enquiry created',
-					 'message'     => 'Your Enquiry is Created, Username:'.safeText('email_id').'and Password'.$sPassword.'click the link to view http://sense.org.in/contact_us/view_conversation?id='.$new_enquiry->id
+					 'message'     => 'Your Enquiry is Created, Username: -'.safeText('email_id').' and Password -'.$sPassword.' .click the link to view http://sense.org.in/contact_us/view_conversation?id='.$new_enquiry->id
 				   );
 
 				   $oEmailTemplate = $this->contact_us_model->getEmailTemplateBy('id', $oPurposeDetails->email_template_id);
@@ -245,8 +245,44 @@ class Contact_us extends CI_Controller {
 		$this->authentication->is_admin_logged_in(true,'user/login');
 
 			$this->load->model('Contact_us_model');
+			$this->load->library('pagination');
+
 			$this->mcontents['aEnquiry_purposes'] = $this->data_model->getDataItem('enquiry_purposes', 'id-title');
-			$this->mcontents['aEnquiries'] = $this->Contact_us_model->get_enquiries();
+
+
+			/* Pagination */
+			$aWhere = $aOrWhere = $aOrderBy = $aWhere = array();
+
+
+			$this->mcontents['iLimit'] 		= 10;
+	 		$this->mcontents['iOffset'] 	= safeText('per_page', false, 'get') ? safeText('per_page', false, 'get') : 0;
+
+			$this->mcontents['aEnquiries'] = $this->Contact_us_model->get_enquiries($this->mcontents['iLimit'],
+																					$this->mcontents['iOffset'],
+																										$aWhere,
+																										$aOrderBy,
+																										$aOrWhere);
+
+			// get offset
+			$this->mcontents['iTotal'] 		= $this->Contact_us_model->get_enquiry_count($aWhere, array(), $aOrWhere);
+
+
+
+			$sUriSegment = 'contact_us/list_enquiries';
+			$sUriString  = preprocess_query_string_for_pagination($sUriSegment);
+
+
+			$this->aPaginationConfiguration = array();
+			$this->aPaginationConfiguration['base_url'] 	= c('base_url') . $sUriSegment . '?' . $sUriString;
+			$this->aPaginationConfiguration['total_rows'] 	= $this->mcontents['iTotal'];
+			$this->aPaginationConfiguration['per_page'] 	= $this->mcontents['iLimit'];
+			$this->aPaginationConfiguration['page_query_string'] 	= TRUE;
+			$this->pagination->customizePagination();
+			$this->mcontents['iOffset'] 					= $this->mcontents['iOffset'];
+			$this->pagination->initialize($this->aPaginationConfiguration);
+			$this->mcontents['sPagination'] 				= $this->pagination->create_links();
+			/* Pagination - End */
+
 			$this->mcontents['page_heading'] = 'Enquiries';
 			loadAdminTemplate('contact_us/enquiries/list_enquiries');
 
